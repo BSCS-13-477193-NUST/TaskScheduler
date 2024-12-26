@@ -1,6 +1,22 @@
 from scheduler import Scheduler
 from timestamp import Timestamp
 
+def parseString(text) -> 'Timestamp':
+    #(YYYY-MM-DD HH:MM)
+    parts = text.split('-')
+    year = int(parts[0])
+    month = int(parts[1])
+    day = int(parts[2][:2])
+    
+    parts = parts[3].split(':')
+    hour = int(parts[0])
+    minute = int(parts[1])
+    #validation checks
+    if year < 2024 or month < 1 or month > 12 or day < 1 or day > 31 or hour < 0 or hour > 23 or minute < 0 or minute > 59:
+        print("Invalid date/time format. Please try again.")
+        return None
+    return Timestamp(minute, hour, day, month, year)
+
 def menu():
     scheduler = Scheduler()
 
@@ -19,16 +35,14 @@ def menu():
             duration = float(input("Enter task duration in hours: "))
             score = float(input("Enter task score (1-10): "))
             
-            deadline_input = input("Enter deadline (YYYY-MM-DD HH:MM): ")
-            deadline = Timestamp(*deadline_parts)
+            deadline = if parseString(input("Enter deadline (YYYY-MM-DD HH:MM): ")) == None:
+                continue
 
-            start_time_input = input("Enter start time (days:hours:minutes): ")
-            start_time_parts = list(map(int, start_time_input.split(':')))
-            start_time = Timestamp(*start_time_parts)
+            start_time = if parseString(input("Enter deadline (YYYY-MM-DD HH:MM): ")) == None:
+                continue
 
-            end_time_input = input("Enter end time (days:hours:minutes): ")
-            end_time_parts = list(map(int, end_time_input.split(':')))
-            end_time = Timestamp(*end_time_parts)
+            end_time = if parseString(input("Enter deadline (YYYY-MM-DD HH:MM): ")) == None:
+                continue
  
             delayable = float(input("Enter delayable factor (1-10): "))
 

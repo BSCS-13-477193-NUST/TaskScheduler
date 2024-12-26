@@ -13,13 +13,6 @@ class Timestamp:
         self.day = day
         self.month = month
         self.year = year
-
-    def __init__(self, day: int, month: int, year: int):
-        self.minute = 59
-        self.hour = 23
-        self.day = day
-        self.month = month
-        self.year = year
     
     def getCurrentTimestamp() -> 'Timestamp':
         current_time = time.localtime()
@@ -29,8 +22,9 @@ class Timestamp:
         return (self.year - timestamp.year) * 525600 + (self.month - timestamp.month) * 43800 + (self.day - timestamp.day) * 1440 + (self.hour - timestamp.hour) * 60 + (self.minute - timestamp.minute)
 
     def getMinutesLeft(self) -> int:
-        time1 = self.getCurrentTimestamp()
+        time1 = Timestamp.getCurrentTimestamp()
         return self.getDifference(time1)
+
     
     def __str__(self) -> str:
         return f"{self.hour:02}:{self.minute:02} {self.day:02}/{self.month:02}/{self.year}" 

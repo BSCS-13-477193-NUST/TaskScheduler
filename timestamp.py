@@ -49,7 +49,7 @@ class Timestamp:
             self.hour -= 24
             self.day += 1
         while self.day > Timestamp.days_in_month[self.month]:
-            # Adjust for leap year
+            #adjust for leap year
             if self.month == 2 and self.day > 28:
                 if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
                     if self.day > 29:

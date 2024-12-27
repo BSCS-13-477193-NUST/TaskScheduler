@@ -18,36 +18,56 @@ class Scheduler:
 
 
     def solve_schedule(self):
-        #----in development-------
-        # Calculate weightage for each task
-        for task in self.tasks:
-            task.calculate_weightage()
-
-        # Sort tasks by weightage in descending order
+        """
+        Schedules tasks by assigning start and end times, prioritizing tasks with higher weightage first.
+        Resolves conflicts iteratively and ensures no overlapping tasks in the schedule.
+        """
+        # Sort tasks by weightage (descending order)
         self.tasks.sort(key=lambda x: x.weightage, reverse=True)
 
+        # Get the current time
         current_time = Timestamp.getCurrentTimestamp()
 
         for task in self.tasks:
+            # Skip completed tasks
             if task.completed:
+                self.tasks.remove(task)
                 continue
+
+            # Set task start time based on whether it's delayable
             if not task.delayable:
-                if task.start_time < current_time:
-                    if task.end_time > current_time:
-                        task.start_time = current_time
-                        task.duration = task.end_time.getDifference(current_time) / 60.0
-
-                      
-            else: #task is delayable
-
-                if task.start_time < current_time:
+                # For non-delayable tasks, ensure they are scheduled within their constraints
+                if task.end_time < current_time:
+                    # Task has already started and ended, skip it
+                    self.tasks.remove(task)
+                    continue
+                elif task.start_time < current_time and task.end_time > current_time:
                     task.start_time = current_time
-            if self.calendar.is_conflict(task.start_time, task.end_time):
-            
-            task.end_time = task.start_time.addMinutes(task.duration * 60)
-            
+                    task.duration = current_time.addMinutes(getMinutesLeft(task.end_time))
+            else:
+                # For delayable tasks, start from the current time
+                task.start_time = current_time
+                task.end_time = task.start_time.addMinutes(task.duration * 60)
+
+            # Resolve conflicts iteratively
+            conflicting_task = self.place_task(task)
+            while conflicting_task is not None:
+                # Push the conflicting task forward
+                task.start_time = conflicting_task.end_time.addMinutes(5)  # Add a buffer time
+                task.end_time = task.start_time.addMinutes(task.duration * 60)
+                conflicting_task = self.place_task(task)
+
+            # Check for calendar conflicts
+            while self.calendar.is_conflict(task.start_time, task.end_time):
+                task.start_time = task.start_time.addMinutes(5)  # Increment start time to avoid conflict
+                task.end_time = task.start_time.addMinutes(task.duration * 60)
+
+            # Add the task to the calendar
             self.calendar.add_tasks(task)
-            current_time = task.end_time.addMinutes(5)  # Update current time to the end time of the last scheduled task
+
+            # Update the current time to the end of the scheduled task
+            current_time = task.end_time.addMinutes(5)
+
 
     def display_tasks(self):
         if not self.tasks:

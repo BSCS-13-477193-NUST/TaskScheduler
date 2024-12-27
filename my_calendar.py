@@ -9,34 +9,27 @@ class Calendar:
 
     
     def addTask(self, tasks):
-        for task_data in tasks:
-            task = Task(
-                task_data["title"],
-                task_data["description"],
-                task_data["priority"],
-                task_data["difficulty"],
-                task_data["duration"],
-                task_data["fuel_cost"],
-                task_data["deadline"],
-                task_data["start_time"],
-                task_data["end_time"],
-                task_data["absolute"]
-            )
+        for task in tasks:
             
-            # Convert start_time from string to Timestamp object
-            start_time_str = task_data["start_time"]
+            start_time_str = task.start_time
             start_time = self.fromString(start_time_str)
+            print(start_time)
 
             # Access the components of the Timestamp object
             start_month = start_time.month - 1  # 0-based index for months
+            print(start_month)
             start_day = start_time.day - 1      # 0-based index for days
-            start_hour = start_time.hour        # 0-based index for hours
+            print(start_day)
+            start_hour = start_time.hour
+            print(start_hour)        # 0-based index for hours
             start_minute = start_time.minute    # 0-based index for minutes
+            print(start_minute)
             
             # Append the task to the correct slot in the calendar
             self.calendar[start_month][start_day][start_hour][start_minute].append(task)
 
         print("Tasks added successfully!\n")
+        
     
     @staticmethod
     def fromString(start_time_str: str) -> 'Timestamp':
@@ -84,167 +77,167 @@ class Calendar:
 
         for month in range(12):
             for day in range(31):
-                tasks = self.calendar[month][day]
-                if tasks:
-                    # Calculate the number of tasks for the day
-                    task_count = len(tasks)
-                    # Assign red color if the number of tasks is high (e.g., >= 5), else blue
+                task_count = 0  # Initialize task count for the day
+                for hour in range(24):
+                    for minute in range(60):
+                        tasks = self.calendar[month][day][hour][minute]
+                        task_count += len(tasks)  # Count the tasks for this hour and minute
+                
+                if task_count > 0:
+                    # Assign color based on the task count
                     color = get_color(task_count)
-
-                    ax.scatter(day, month, color=color, s=100)
+                    ax.scatter(day, month, color=color, s=100)  # Pl
 
         plt.show()
-
-        
 
 def main():
 
     tasks = [
-            {
-                "title": "quran",
-                "description": "i have to revise and then recite it to mama as well",
-                "priority": 7,
-                "difficulty": 6,
-                "duration": 2,
-                "fuel_cost": 7,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-31 21:59:59",
-                "end_time": "2024-12-31 23:59:59",
-                "absolute": False
-            },
-            {
-                "title": "exercise",
-                "description": "30 minutes of cardio",
-                "priority": 5,
-                "difficulty": 4,
-                "duration": 0.5,
-                "fuel_cost": 6,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-31 08:00:00",
-                "end_time": "2024-02-01 08:30:00",
-                "absolute": True
-            },
-            {
-                "title": "meeting",
-                "description": "team meeting",
-                "priority": 8,
-                "difficulty": 3,
-                "duration": 1,
-                "fuel_cost": 5,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-31 10:00:00",
-                "end_time": "2024-02-02 11:00:00",
-                "absolute": True
-            },
-            {
-                "title": "shopping",
-                "description": "grocery shopping",
-                "priority": 4,
-                "difficulty": 2,
-                "duration": 2,
-                "fuel_cost": 3,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-03 15:00:00",
-                "end_time": "2024-02-03 17:00:00",
-                "absolute": True
-            },
-            {
-                "title": "study",
-                "description": "study for exam",
-                "priority": 9,
-                "difficulty": 7,
-                "duration": 3,
-                "fuel_cost": 8,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-03 18:00:00",
-                "end_time": "2024-02-04 21:00:00",
-                "absolute": True
-            },
-            {
-                "title": "coding",
-                "description": "work on a coding project",
-                "priority": 6,
-                "difficulty": 5,
-                "duration": 2,
-                "fuel_cost": 4,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-03 14:00:00",
-                "end_time": "2024-02-01 16:00:00",
-                "absolute": True
-            },
-            {
-                "title": "reading",
-                "description": "read a book",
-                "priority": 3,
-                "difficulty": 2,
-                "duration": 1.5,
-                "fuel_cost": 2,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-01-31 18:00:00",
-                "end_time": "2024-02-01 19:30:00",
-                "absolute": True
-            },
-            {
-                "title": "cooking",
-                "description": "prepare dinner",
-                "priority": 2,
-                "difficulty": 1,
-                "duration": 1,
-                "fuel_cost": 1,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-02-02 19:00:00",
-                "end_time": "2024-02-01 20:00:00",
-                "absolute": True
-            },
-            {
-                "title": "meditation",
-                "description": "practice mindfulness",
-                "priority": 1,
-                "difficulty": 1,
-                "duration": 0.5,
-                "fuel_cost": 1,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-11-31 20:30:00",
-                "end_time": "2024-02-01 21:00:00",
-                "absolute": True
-            },
-            {
-                "title": "project",
-                "description": "work on a project",
-                "priority": 7,
-                "difficulty": 6,
-                "duration": 4,
-                "fuel_cost": 7,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-03-01 10:00:00",
-                "end_time": "2024-03-05 14:00:00",
-                "absolute": True
-            },
-            {
-                "title": "cleaning",
-                "description": "clean the house",
-                "priority": 5,
-                "difficulty": 4,
-                "duration": 3,
-                "fuel_cost": 6,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-03-10 09:00:00",
-                "end_time": "2024-03-10 12:00:00",
-                "absolute": True
-            },
-            {
-                "title": "gardening",
-                "description": "take care of the garden",
-                "priority": 6,
-                "difficulty": 5,
-                "duration": 2,
-                "fuel_cost": 4,
-                "deadline": "2024-12-31 23:59:59",
-                "start_time": "2024-03-15 14:00:00",
-                "end_time": "2024-03-15 16:00:00",
-                "absolute": True
-            }
-        ]
+        Task(
+            "quran",
+            "i have to revise and then recite it to mama as well",
+            7,
+            6,
+            2,
+            7,
+            "2024-12-31 23:59:59",
+            "2024-01-31 21:59:59",
+            "2024-12-31 23:59:59",
+            False
+        ),
+        Task(
+            "exercise",
+            "30 minutes of cardio",
+            5,
+            4,
+            0.5,
+            6,
+            "2024-12-31 23:59:59",
+            "2024-01-31 08:00:00",
+            "2024-02-01 08:30:00",
+            True
+        ),
+        Task(
+            "meeting",
+            "team meeting",
+            8,
+            3,
+            1,
+            5,
+            "2024-12-31 23:59:59",
+            "2024-01-31 10:00:00",
+            "2024-02-02 11:00:00",
+            True
+        ),
+        Task(
+            "shopping",
+            "grocery shopping",
+            4,
+            2,
+            2,
+            3,
+            "2024-12-31 23:59:59",
+            "2024-01-03 15:00:00",
+            "2024-02-03 17:00:00",
+            True
+        ),
+        Task(
+            "study",
+            "study for exam",
+            9,
+            7,
+            3,
+            8,
+            "2024-12-31 23:59:59",
+            "2024-01-03 18:00:00",
+            "2024-02-04 21:00:00",
+            True
+        ),
+        Task(
+            "coding",
+            "work on a coding project",
+            6,
+            5,
+            2,
+            4,
+            "2024-12-31 23:59:59",
+            "2024-01-03 14:00:00",
+            "2024-02-01 16:00:00",
+            True
+        ),
+        Task(
+            "reading",
+            "read a book",
+            3,
+            2,
+            1.5,
+            2,
+            "2024-12-31 23:59:59",
+            "2024-01-31 18:00:00",
+            "2024-02-01 19:30:00",
+            True
+        ),
+        Task(
+            "cooking",
+            "prepare dinner",
+            2,
+            1,
+            1,
+            1,
+            "2024-12-31 23:59:59",
+            "2024-02-02 19:00:00",
+            "2024-02-01 20:00:00",
+            True
+        ),
+        Task(
+            "meditation",
+            "practice mindfulness",
+            1,
+            1,
+            0.5,
+            1,
+            "2024-12-31 23:59:59",
+            "2024-11-31 20:30:00",
+            "2024-02-01 21:00:00",
+            True
+        ),
+        Task(
+            "project",
+            "work on a project",
+            7,
+            6,
+            4,
+            7,
+            "2024-12-31 23:59:59",
+            "2024-03-01 10:00:00",
+            "2024-03-05 14:00:00",
+            True
+        ),
+        Task(
+            "cleaning",
+            "clean the house",
+            5,
+            4,
+            3,
+            6,
+            "2024-12-31 23:59:59",
+            "2024-03-10 09:00:00",
+            "2024-03-10 12:00:00",
+            True
+        ),
+        Task(
+            "gardening",
+            "take care of the garden",
+            6,
+            5,
+            2,
+            4,
+            "2024-12-31 23:59:59",
+            "2024-03-15 14:00:00",
+            "2024-03-15 16:00:00",
+            True
+        )
+    ]
 
     calendar = Calendar()
     calendar.addTask(tasks)

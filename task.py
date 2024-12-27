@@ -14,13 +14,13 @@ class Task:
     delayable: bool
     completed: bool
     weightage: float
-    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, score: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool):
+    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, fuel_cost: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool):
         self.title = title
         self.description = description
         self.priority = priority
         self.difficulty = difficulty
         self.duration = duration
-        self.fuel_cost = score
+        self.fuel_cost = fuel_cost
         self.deadline = deadline
         self.start_time = start_time
         self.end_time = end_time

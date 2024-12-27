@@ -1,8 +1,11 @@
 from scheduler import Scheduler
 from timestamp import Timestamp
+from my_calendar import Calendar
 
 def getDate(text) -> 'Timestamp':
     temp = Timestamp.getCurrentTimestamp()
+    if text == "now":
+        return temp
     try:
         if '-' not in text:
             #time only format #(HH:MM)
@@ -84,6 +87,7 @@ def menu():
 
             scheduler.add_task(name, description, priority, difficulty, duration, score, 
                                deadline, start_time, end_time, delayable)
+            
             print("Task added successfully!\n")
 
         elif choice == "2":
@@ -95,7 +99,10 @@ def menu():
         elif choice == "4":
             print("Exiting the Task Management System. Goodbye!")
             break
-
+        elif choice == "5":
+            calendar = Calendar()
+            calendar.
+            print("Tasks added successfully!\n")
         else:
             print("Invalid choice. Please try again.\n")
 

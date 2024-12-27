@@ -1,4 +1,5 @@
 from task import Task
+from my_calendar import Calendar
 
 class Scheduler:
 
@@ -22,9 +23,16 @@ class Scheduler:
         #sort tasks by weightage in descending order
         self.tasks.sort(key=lambda x: x.weightage, reverse=True)
 
+        for task in self.tasks:
+            
+            task.start_time = Timestamp.getCurrentTimestamp()
+            task.end_time = task.start_time.addMinutes(task.duration * 60)
+
         # print("\nScheduled Tasks (sorted by weightage):")
         # for i, task in enumerate(self.tasks, 1):
         #     print(f"{i}. {task.name} - Weightage: {task.weightage:.2f}, Duration: {task.duration} hours")
+        calendar = Calendar()
+        calendar.add_tasks(self.tasks)
 
     def display_tasks(self):
         if not self.tasks:

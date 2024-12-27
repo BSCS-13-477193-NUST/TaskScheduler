@@ -18,6 +18,7 @@ class Scheduler:
 
 
     def solve_schedule(self):
+        #----in development-------
         # Calculate weightage for each task
         for task in self.tasks:
             task.calculate_weightage()
@@ -28,11 +29,25 @@ class Scheduler:
         current_time = Timestamp.getCurrentTimestamp()
 
         for task in self.tasks:
-            task.start_time = current_time
+            if task.completed:
+                continue
+            if not task.delayable:
+                if task.start_time < current_time:
+                    if task.end_time > current_time:
+                        task.start_time = current_time
+                        task.duration = task.end_time.getDifference(current_time) / 60.0
+
+                      
+            else: #task is delayable
+
+                if task.start_time < current_time:
+                    task.start_time = current_time
+            if self.calendar.is_conflict(task.start_time, task.end_time):
+            
             task.end_time = task.start_time.addMinutes(task.duration * 60)
-            task.completed = True
+            
             self.calendar.add_tasks(task)
-            current_time = task.end_time  # Update current time to the end time of the last scheduled task
+            current_time = task.end_time.addMinutes(5)  # Update current time to the end time of the last scheduled task
 
     def display_tasks(self):
         if not self.tasks:
@@ -44,5 +59,4 @@ class Scheduler:
             for task in self.tasks:
                 print()
                 print(task)
-                
             print()

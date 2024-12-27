@@ -4,37 +4,33 @@ from my_calendar import Calendar
 class Scheduler:
     calendar = Calendar()
     written = false
-
+    mins = {
+        "d": 1440,
+        "w": 10080,
+        "m": 43830,
+        "daily": 1440,
+        "weekly": 10080,
+        "monthly": 43830
+    }
     def __init__(self):
         #initialize task list
         self.tasks = []
 
     def add_task(self, name, description, priority, difficulty, duration, score, deadline, 
-                 start_time, end_time, delayable, recurring):
-        #task dictionary with all relevant factors
+                 start_time, end_time, delayable, recurring, repeat):
         
         task = Task(name, description, priority, difficulty, duration, score, deadline, start_time, end_time, delayable, recurring)
         task.calculate_weightage()
         self.tasks.append(task)
         st = start_time
-        if recurring == "d" or recurring == "daily":
-            while st < start_time.addMinutes(10080):
-                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
+        d = deadline
+        if recurring != "":
+            for i in range(repeat - 1):
+                st = st.addMinutes(mins[recurring])
+                d = d.addMinutes(mins[recurring])
+                task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring)
                 task.calculate_weightage()
                 self.tasks.append(task)
-                st = st.addMinutes(1440)
-        elif recurring == "w" or recurring == "weekly":
-            while st < start_time.addMinutes(43830):
-                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
-                task.calculate_weightage()
-                self.tasks.append(task)
-                st = st.addMinutes(10080)
-        elif recurring == "m" or recurring == "monthly":
-            while st < start_time.addMinutes(525600):
-                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
-                task.calculate_weightage()
-                self.tasks.append(task)
-                st = st.addMinutes(43830)
 
     def place_task(self, task):
         month = task.start_time.month - 1

@@ -84,6 +84,7 @@ def menu():
                 print("Invalid input. Task will be considered delayable by default.")
                 delayable = True
 
+            repeat = 1
             r_input = input("Is task recurring? (y/n): ")
             if r_input == "y":
                 recurring = ""
@@ -92,6 +93,7 @@ def menu():
                     if recurring != "d" and recurring != "w" and recurring != "m":
                         print("Invalid input. Please try again.")
                 repeat = int(input("How many times should the task repeat? >"))
+
 
                 
             elif recurring_input == "n":

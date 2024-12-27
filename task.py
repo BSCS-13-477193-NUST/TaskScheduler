@@ -8,39 +8,41 @@ class Task:
     difficulty: int
     duration: float
     fuel_cost: float
+    
     deadline: Timestamp
     start_time: Timestamp
     end_time: Timestamp
-    absolute: bool
+    delayable: bool
     completed: bool
     weightage: float
-
-    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, score: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, absolute: bool):
+    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, fuel_cost: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool):
         self.title = title
         self.description = description
         self.priority = priority
         self.difficulty = difficulty
         self.duration = duration
-        self.fuel_cost = score
+        self.fuel_cost = fuel_cost
         self.deadline = deadline
         self.start_time = start_time
         self.end_time = end_time
-        self.absolute = absolute
+        self.delayable = delayable
         self.completed = False
         self.weightage = 0
 
-    def calculateWeightage(self):
+    def calculate_weightage(self):
         deadlineMins = self.deadline.getMinutesLeft()
         completionWindow = self.end_time.getDifference(self.start_time)
 
         self.weightage = (
-            weights['w1'] * self.priority +
-            weights['w2'] * self.difficulty -
-            weights['w3'] * self.duration -
-            weights['w4'] * self.fuel_cost -
-            weights['w5'] * deadlineMins -
-            weights['w6'] * completionWindow
+            weights['priority'] * self.priority +
+            weights['difficulty'] * self.difficulty -
+            weights['duration'] * self.duration -
+            weights['fuel_cost'] * self.fuel_cost -
+            weights['deadline'] * deadlineMins -
+            weights['completion window'] * completionWindow
         )
+    def __str__(self) -> str:
+        return f"Task: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\nScore: {self.fuel_cost}\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
 
     def set_name(self, name: str):
         self.title = name

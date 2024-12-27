@@ -1,34 +1,53 @@
 from task import Task
 import matplotlib.pyplot as plt
+from timestamp import Timestamp
 
 class Calendar:
-    calendar = [[[] for _ in range(31)] for _ in range(12)]
+    #stores 60 minutes of every 24 hours of every day of every month of the year
+    calendar = [[[[[] for _ in range(60)] for _ in range(24)] for _ in range(31)] for _ in range(12)]
         
 
+    
     def addTask(self, tasks):
-       
-        #trial tasks to see if the thing works ;p
-        
-
         for task_data in tasks:
             task = Task(
-            task_data["title"],
-            task_data["description"],
-            task_data["priority"],
-            task_data["difficulty"],
-            task_data["duration"],
-            task_data["fuel_cost"],
-            task_data["deadline"],
-            task_data["start_time"],
-            task_data["end_time"],
-            task_data["absolute"]
+                task_data["title"],
+                task_data["description"],
+                task_data["priority"],
+                task_data["difficulty"],
+                task_data["duration"],
+                task_data["fuel_cost"],
+                task_data["deadline"],
+                task_data["start_time"],
+                task_data["end_time"],
+                task_data["absolute"]
             )
-            start_month = int(task_data["start_time"].split("-")[1])
-            start_day = int(task_data["start_time"].split("-")[2].split(" ")[0])
             
-            self.calendar[start_month-1][start_day-1].append(task)
+            # Convert start_time from string to Timestamp object
+            start_time_str = task_data["start_time"]
+            start_time = self.fromString(start_time_str)
+
+            # Access the components of the Timestamp object
+            start_month = start_time.month - 1  # 0-based index for months
+            start_day = start_time.day - 1      # 0-based index for days
+            start_hour = start_time.hour        # 0-based index for hours
+            start_minute = start_time.minute    # 0-based index for minutes
+            
+            # Append the task to the correct slot in the calendar
+            self.calendar[start_month][start_day][start_hour][start_minute].append(task)
+
         print("Tasks added successfully!\n")
     
+    @staticmethod
+    def fromString(start_time_str: str) -> 'Timestamp':
+        # Split string like "2024-01-31 21:59:59"
+        date_str, time_str = start_time_str.split(' ')
+        year, month, day = map(int, date_str.split('-'))
+        hour, minute, _ = map(int, time_str.split(':'))
+        
+        # Return Timestamp object
+        return Timestamp(minute, hour, day, month, year)
+
     def displayYearCalendar(self):
         fig, ax = plt.subplots(figsize=(10, 8))
         ax.set_title("Task Calendar")

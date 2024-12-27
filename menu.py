@@ -8,7 +8,7 @@ def getDate(text) -> 'Timestamp':
         return temp
     try:
         if '-' not in text:
-            #time only format #(HH:MM)
+            #time only format (HH:MM)
             parts = text.split(':')
             hour = int(parts[0])
             minute = int(parts[1])
@@ -16,7 +16,7 @@ def getDate(text) -> 'Timestamp':
             month = temp.month
             year = temp.year
         elif ':' not in text:
-            #date only format #(YYYY-MM-DD)
+            #date only format (YYYY-MM-DD)
             parts = text.split('-')
             year = int(parts[0])
             month = int(parts[1])
@@ -24,7 +24,7 @@ def getDate(text) -> 'Timestamp':
             minute = 59
             hour = 23
         else:
-            #date and time format #(YYYY-MM-DD HH:MM)
+            #date and time format (YYYY-MM-DD HH:MM)
             parts = text.split('-')
             year = int(parts[0])
             month = int(parts[1])
@@ -84,8 +84,24 @@ def menu():
                 print("Invalid input. Task will be considered delayable by default.")
                 delayable = True
 
+            r_input = input("Is task recurring? (y/n): ")
+            if r_input == "y":
+                recurring = ""
+                while recurring != "d" and recurring != "w" and recurring != "m":
+                    recurring = input("Enter recurring interval (daily (d), weekly (w), monthly (m)): ")
+                    if recurring != "d" and recurring != "w" and recurring != "m":
+                        print("Invalid input. Please try again.")
+                repeat = int(input("How many times should the task repeat? >"))
+
+                
+            elif recurring_input == "n":
+                recurring = ""
+            else:
+                print("Invalid input. Task will be considered non-recurring by default.")
+                recurring = ""
+
             scheduler.add_task(name, description, priority, difficulty, duration, score, 
-                               deadline, start_time, start_time.addMinutes(duration*60), delayable)
+                               deadline, start_time, start_time.addMinutes(duration*60), delayable, recurring, repeat)
             
             print("Task added successfully!\n")
 

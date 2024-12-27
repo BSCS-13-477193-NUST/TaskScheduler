@@ -9,19 +9,49 @@ class Scheduler:
         #initialize task list
         self.tasks = []
 
-    def add_task(self, name, description, priority, difficulty, duration, score, deadline_importance, 
-                 start_time, end_time, delayable):
+    def add_task(self, name, description, priority, difficulty, duration, score, deadline, 
+                 start_time, end_time, delayable, recurring):
         #task dictionary with all relevant factors
-        task = Task(name, description, priority, difficulty, duration, score, deadline_importance, start_time, end_time, delayable)
+        
+        task = Task(name, description, priority, difficulty, duration, score, deadline, start_time, end_time, delayable, recurring)
         task.calculate_weightage()
         self.tasks.append(task)
+        st = start_time
+        if recurring == "d" or recurring == "daily":
+            while st < start_time.addMinutes(10080):
+                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
+                task.calculate_weightage()
+                self.tasks.append(task)
+                st = st.addMinutes(1440)
+        elif recurring == "w" or recurring == "weekly":
+            while st < start_time.addMinutes(43830):
+                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
+                task.calculate_weightage()
+                self.tasks.append(task)
+                st = st.addMinutes(10080)
+        elif recurring == "m" or recurring == "monthly":
+            while st < start_time.addMinutes(525600):
+                task = Task(name, description, priority, difficulty, duration, score, deadline, st, st.addMinutes(duration * 60), delayable, recurring)
+                task.calculate_weightage()
+                self.tasks.append(task)
+                st = st.addMinutes(43830)
 
+    def place_task(self, task):
+        month = task.start_time.month - 1
+        day = task.start_time.day - 1
+
+        tasks_on_day = self.calendar[month][day]
+
+        for existing_task in tasks_on_day:
+            if existing_task.start_time <= task.start_time < existing_task.end_time or \
+                    existing_task.start_time < task.end_time <= existing_task.end_time or \
+                    task.start_time <= existing_task.start_time < task.end_time or \
+                    task.start_time < existing_task.end_time <= task.end_time:
+                return existing_task
+
+        return None
 
     def solve_schedule(self):
-        """
-        Schedules tasks by assigning start and end times, prioritizing tasks with higher weightage first.
-        Resolves conflicts iteratively and ensures no overlapping tasks in the schedule.
-        """
         # Sort tasks by weightage (descending order)
         self.tasks.sort(key=lambda x: x.weightage, reverse=True)
 
@@ -44,18 +74,24 @@ class Scheduler:
                 elif task.start_time < current_time and task.end_time > current_time:
                     task.start_time = current_time
                     task.duration = current_time.addMinutes(getMinutesLeft(task.end_time))
+
+
             else:
                 # For delayable tasks, start from the current time
                 task.start_time = current_time
                 task.end_time = task.start_time.addMinutes(task.duration * 60)
 
-            # Resolve conflicts iteratively
-            conflicting_task = self.place_task(task)
-            while conflicting_task is not None:
-                # Push the conflicting task forward
-                task.start_time = conflicting_task.end_time.addMinutes(5)  # Add a buffer time
-                task.end_time = task.start_time.addMinutes(task.duration * 60)
                 conflicting_task = self.place_task(task)
+                while conflicting_task is not None:
+                    # Push the conflicting task forward
+                    task.start_time = conflicting_task.end_time.addMinutes(5)
+                    task.end_time = start_time.addMinutes(task.duration * 60)
+                    conflicting_task = self.place_task(task)
+
+
+
+            # Resolve conflicts iteratively
+
 
             # Check for calendar conflicts
             while self.calendar.is_conflict(task.start_time, task.end_time):

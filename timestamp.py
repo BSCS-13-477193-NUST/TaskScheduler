@@ -41,31 +41,32 @@ class Timestamp:
         return self.getDifference(time1)
 
     def addMinutes(self, minutes: int):
-        self.minute += minutes
-        while self.minute >= 60:
-            self.minute -= 60
-            self.hour += 1
-        while self.hour >= 24:
-            self.hour -= 24
-            self.day += 1
-        while self.day > Timestamp.days_in_month[self.month]:
+        temp = self
+        temp.minute += minutes
+        while temp.minute >= 60:
+            temp.minute -= 60
+            temp.hour += 1
+        while temp.hour >= 24:
+            temp.hour -= 24
+            temp.day += 1
+        while temp.day > Timestamp.days_in_month[temp.month]:
             #adjust for leap year
-            if self.month == 2 and self.day > 28:
-                if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
-                    if self.day > 29:
-                        self.day -= 29
-                        self.month += 1
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day -= 29
+                        temp.month += 1
                     else:
                         break
                 else:
-                    self.day -= 28
-                    self.month += 1
+                    temp.day -= 28
+                    temp.month += 1
             else:
-                self.day -= Timestamp.days_in_month[self.month]
-                self.month += 1
-            if self.month > 12:
-                self.month = 1
-                self.year += 1
+                temp.day -= Timestamp.days_in_month[temp.month]
+                temp.month += 1
+            if temp.month > 12:
+                temp.month = 1
+                temp.year += 1
 
     
     def __str__(self) -> str:

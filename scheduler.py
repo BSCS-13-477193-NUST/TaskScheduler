@@ -2,6 +2,8 @@ from task import Task
 from my_calendar import Calendar
 
 class Scheduler:
+    calendar = Calendar()
+    written = false
 
     def __init__(self):
         #initialize task list
@@ -16,23 +18,21 @@ class Scheduler:
 
 
     def solve_schedule(self):
-        #calculate weightage for each task
+        # Calculate weightage for each task
         for task in self.tasks:
             task.calculate_weightage()
 
-        #sort tasks by weightage in descending order
+        # Sort tasks by weightage in descending order
         self.tasks.sort(key=lambda x: x.weightage, reverse=True)
 
-        for task in self.tasks:
-            
-            task.start_time = Timestamp.getCurrentTimestamp()
-            task.end_time = task.start_time.addMinutes(task.duration * 60)
+        current_time = Timestamp.getCurrentTimestamp()
 
-        # print("\nScheduled Tasks (sorted by weightage):")
-        # for i, task in enumerate(self.tasks, 1):
-        #     print(f"{i}. {task.name} - Weightage: {task.weightage:.2f}, Duration: {task.duration} hours")
-        calendar = Calendar()
-        calendar.add_tasks(self.tasks)
+        for task in self.tasks:
+            task.start_time = current_time
+            task.end_time = task.start_time.addMinutes(task.duration * 60)
+            task.completed = True
+            self.calendar.add_tasks(task)
+            current_time = task.end_time  # Update current time to the end time of the last scheduled task
 
     def display_tasks(self):
         if not self.tasks:

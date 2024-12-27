@@ -50,7 +50,8 @@ def menu():
         print("1. Add Task")
         print("2. Display Tasks")
         print("3. Solve Schedule")
-        print("4. Exit")
+        print("4. Display Calendar")
+        print("5. Exit")
         choice = input("Enter your choice: ")
 
         if choice == "1":
@@ -70,12 +71,10 @@ def menu():
                 if start_time is None:
                     continue
 
-                end_time = getDate(input("Enter end time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
-                if end_time is None:
-                    continue
             except ValueError:
                 print("Invalid input. Please try again.")
                 continue
+
             delayable_input = input("Is task delayable? (y/n): ")
             if delayable_input == "y":
                 delayable = True
@@ -86,7 +85,7 @@ def menu():
                 delayable = True
 
             scheduler.add_task(name, description, priority, difficulty, duration, score, 
-                               deadline, start_time, end_time, delayable)
+                               deadline, start_time, start_time.addMinutes(duration*60), delayable)
             
             print("Task added successfully!\n")
 
@@ -97,12 +96,18 @@ def menu():
             scheduler.solve_schedule()
 
         elif choice == "4":
+            if not scheduler.tasks:
+                print("No tasks to display.\n")
+                continue
+            if not scheduler.written:
+                print("Optimising schedule...")
+                scheduler.solve_schedule()
+                scheduler.written = true
+            print("Displaying calendar...")
+            scheduler.calendar.printCalendar()
+        elif choice == "5":
             print("Exiting the Task Management System. Goodbye!")
             break
-        elif choice == "5":
-            calendar = Calendar()
-            calendar.
-            print("Tasks added successfully!\n")
         else:
             print("Invalid choice. Please try again.\n")
 

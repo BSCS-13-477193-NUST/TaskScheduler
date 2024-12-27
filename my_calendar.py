@@ -4,37 +4,12 @@ from timestamp import Timestamp
 
 class Calendar:
     #stores 60 minutes of every 24 hours of every day of every month of the year
-    calendar = [[[[[] for _ in range(60)] for _ in range(24)] for _ in range(31)] for _ in range(12)]
-        
+    calendar = [[[] for _ in range(31)] for _ in range(12)]
 
-    
     def addTask(self, tasks):
-        for task_data in tasks:
-            task = Task(
-                task_data["title"],
-                task_data["description"],
-                task_data["priority"],
-                task_data["difficulty"],
-                task_data["duration"],
-                task_data["fuel_cost"],
-                task_data["deadline"],
-                task_data["start_time"],
-                task_data["end_time"],
-                task_data["absolute"]
-            )
-            
-            # Convert start_time from string to Timestamp object
-            start_time_str = task_data["start_time"]
-            start_time = self.fromString(start_time_str)
 
-            # Access the components of the Timestamp object
-            start_month = start_time.month - 1  # 0-based index for months
-            start_day = start_time.day - 1      # 0-based index for days
-            start_hour = start_time.hour        # 0-based index for hours
-            start_minute = start_time.minute    # 0-based index for minutes
-            
             # Append the task to the correct slot in the calendar
-            self.calendar[start_month][start_day][start_hour][start_minute].append(task)
+        self.calendar[task.start_time.month][task.start_time.day].append(task)
 
         print("Tasks added successfully!\n")
     

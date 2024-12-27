@@ -1,16 +1,16 @@
 from task import Task
 from my_calendar import Calendar
+from timestamp import Timestamp
 
 class Scheduler:
     calendar = Calendar()
-    written = false
+    written = False
+    battery = 100
     mins = {
         "d": 1440,
         "w": 10080,
         "m": 43830,
-        "daily": 1440,
-        "weekly": 10080,
-        "monthly": 43830
+        "" : 0
     }
     def __init__(self):
         #initialize task list
@@ -18,26 +18,20 @@ class Scheduler:
 
     def add_task(self, name, description, priority, difficulty, duration, score, deadline, 
                  start_time, end_time, delayable, recurring, repeat):
-        
-        task = Task(name, description, priority, difficulty, duration, score, deadline, start_time, end_time, delayable, recurring)
-        task.calculate_weightage()
-        self.tasks.append(task)
         st = start_time
         d = deadline
-        if recurring != "":
-            for i in range(repeat - 1):
-                st = st.addMinutes(mins[recurring])
-                d = d.addMinutes(mins[recurring])
-                task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring)
-                task.calculate_weightage()
-                self.tasks.append(task)
+        for i in range(repeat):
+            task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring)
+            task.calculate_weightage()
+            self.tasks.append(task)
+            st = st.addMinutes(self.mins[recurring])
+            d = d.addMinutes(self.mins[recurring])
 
     def place_task(self, task):
         month = task.start_time.month - 1
         day = task.start_time.day - 1
 
-        tasks_on_day = self.calendar[month][day]
-
+        tasks_on_day = self.calendar.calendar[month][day]
         for existing_task in tasks_on_day:
             if existing_task.start_time <= task.start_time < existing_task.end_time or \
                     existing_task.start_time < task.end_time <= existing_task.end_time or \
@@ -81,7 +75,7 @@ class Scheduler:
                 while conflicting_task is not None:
                     # Push the conflicting task forward
                     task.start_time = conflicting_task.end_time.addMinutes(5)
-                    task.end_time = start_time.addMinutes(task.duration * 60)
+                    task.end_time = task.start_time.addMinutes(task.duration * 60)
                     conflicting_task = self.place_task(task)
 
 
@@ -89,15 +83,10 @@ class Scheduler:
             # Resolve conflicts iteratively
 
 
-            # Check for calendar conflicts
-            while self.calendar.is_conflict(task.start_time, task.end_time):
-                task.start_time = task.start_time.addMinutes(5)  # Increment start time to avoid conflict
-                task.end_time = task.start_time.addMinutes(task.duration * 60)
-
             # Add the task to the calendar
-            self.calendar.add_tasks(task)
+            self.calendar.add_task(task)
 
-            # Update the current time to the end of the scheduled task
+            # Update the current time tothe end of the scheduled task
             current_time = task.end_time.addMinutes(5)
 
 
@@ -108,7 +97,5 @@ class Scheduler:
 
         for i, task in enumerate(self.tasks, 1):
             print(f"Task {i}:")
-            for task in self.tasks:
-                print()
-                print(task)
+            print(task)
             print()

@@ -17,7 +17,7 @@ class Task:
     recurring: int
     repeat: int
     weightage: float
-    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, fuel_cost: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool, recurring: str, repeat = 0: int) -> None:
+    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, fuel_cost: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool, recurring: str, repeat: int = 0) -> None:
         self.title = title
         self.description = description
         self.priority = priority

@@ -93,9 +93,9 @@ def menu():
                     if recurring != "d" and recurring != "w" and recurring != "m":
                         print("Invalid input. Please try again.")
                 repeat = int(input("How many times should the task repeat? >"))
-
-
-                
+                if repeat < 1:
+                    print("Invalid input. Task will be considered non-recurring by default.")
+                    repeat = 1
             elif recurring_input == "n":
                 recurring = ""
             else:

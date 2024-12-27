@@ -40,8 +40,8 @@ class Timestamp:
         time1 = Timestamp.getCurrentTimestamp()
         return self.getDifference(time1)
 
-    def addMinutes(self, minutes: int):
-        temp = self
+    def addMinutes(self, minutes: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
         temp.minute += minutes
         while temp.minute >= 60:
             temp.minute -= 60
@@ -67,6 +67,7 @@ class Timestamp:
             if temp.month > 12:
                 temp.month = 1
                 temp.year += 1
+        return temp
 
     
     def __str__(self) -> str:

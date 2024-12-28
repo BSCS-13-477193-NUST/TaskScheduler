@@ -1,11 +1,13 @@
 from task import Task
 from my_calendar import Calendar
 from timestamp import Timestamp
+from task_handler import TaskHandler
 
 class Scheduler:
     calendar = Calendar()
     written = False
     battery = 100
+    task_handler = TaskHandler("tasks.json")
     mins = {
         "d": 1440,
         "w": 10080,
@@ -14,19 +16,20 @@ class Scheduler:
     }
     def __init__(self):
         #initialize task list
-        self.tasks = []
+        self.tasks = self.task_handler.load_tasks()
 
     def add_task(self, name, description, priority, difficulty, duration, score, deadline, 
                  start_time, end_time, delayable, recurring, repeat):
         st = start_time
         d = deadline
         for i in range(repeat):
-            task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring)
+            task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring, repeat)
             task.calculate_weightage()
             self.tasks.append(task)
+            self.task_handler.save_tasks(self.tasks)
             st = st.addMinutes(self.mins[recurring])
             d = d.addMinutes(self.mins[recurring])
-
+            
     def place_task(self, task):
         month = task.start_time.month - 1
         day = task.start_time.day - 1
@@ -54,7 +57,6 @@ class Scheduler:
                 self.tasks.remove(task)
                 continue
 
-            # Set task start time based on whether it's delayable
             if not task.delayable:
                 # For non-delayable tasks, ensure they are scheduled within their constraints
                 if task.end_time < current_time:
@@ -78,15 +80,7 @@ class Scheduler:
                     task.end_time = task.start_time.addMinutes(task.duration * 60)
                     conflicting_task = self.place_task(task)
 
-
-
-            # Resolve conflicts iteratively
-
-
-            # Add the task to the calendar
             self.calendar.add_task(task)
-
-            # Update the current time tothe end of the scheduled task
             current_time = task.end_time.addMinutes(5)
 
 
@@ -95,7 +89,6 @@ class Scheduler:
             print("No tasks to display.\n")
             return
 
-        for i, task in enumerate(self.tasks, 1):
-            print(f"Task {i}:")
+        for task in self.tasks:
             print(task)
             print()

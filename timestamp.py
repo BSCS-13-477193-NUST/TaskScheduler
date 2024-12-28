@@ -29,6 +29,7 @@ class Timestamp:
         self.month = month
         self.year = year
     
+    @staticmethod
     def getCurrentTimestamp() -> 'Timestamp':
         current_time = time.localtime()
         return Timestamp(current_time.tm_min, current_time.tm_hour, current_time.tm_mday, current_time.tm_mon, current_time.tm_year)
@@ -69,6 +70,58 @@ class Timestamp:
                 temp.year += 1
         return temp
 
-    
+    @staticmethod
+    def getDate(text) -> 'Timestamp':
+        temp = Timestamp.getCurrentTimestamp()
+        if text == "now":
+            return temp
+        try:
+            if '-' not in text:
+                #time only format (HH:MM)
+                parts = text.split(':')
+                hour = int(parts[0])
+                minute = int(parts[1])
+                day = temp.day
+                month = temp.month
+                year = temp.year
+            elif ':' not in text:
+                #date only format (YYYY-MM-DD)
+                parts = text.split('-')
+                year = int(parts[0])
+                month = int(parts[1])
+                day = int(parts[2][:2])
+                minute = 59
+                hour = 23
+            else:
+                #date and time format (YYYY-MM-DD HH:MM)
+                parts = text.split('-')
+                year = int(parts[0])
+                month = int(parts[1])
+                day = int(parts[2][:2])
+                parts = parts[2][2:].split(':')
+                hour = int(parts[0])
+                minute = int(parts[1])
+        except ValueError or IndexError:
+            print("Invalid date/time format. Please try again.")
+            return None
+        #validation check
+        if year < 2024 or month < 1 or month > 12 or day < 1 or day > 31 or hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            print("Invalid date/time format. Please try again.")
+            return None
+        return Timestamp(minute, hour, day, month, year)
+
     def __str__(self) -> str:
         return f"{self.hour:02}:{self.minute:02} {self.day:02}/{self.month:02}/{self.year}" 
+
+    def to_dict(self):
+        return {
+            'year': self.year,
+            'month': self.month,
+            'day': self.day,
+            'hour': self.hour,
+            'minute': self.minute
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Timestamp(data['minute'], data['hour'], data['day'], data['month'], data['year'])

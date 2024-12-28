@@ -4,7 +4,7 @@ from timestamp import Timestamp
 
 class Calendar:
     # stores 60 minutes of every 24 hours of every day of every month of the year
-    calendar = [[[[[] for _ in range(60)] for _ in range(24)] for _ in range(31)] for _ in range(12)]
+    calendar = [[[] for _ in range(31)] for _ in range(12)]
     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  # Number of days in each month
     
     def addTask(self, tasks):
@@ -15,11 +15,9 @@ class Calendar:
             # Access the components of the Timestamp object
             start_month = start_time.month - 1  # 0-based index for months
             start_day = start_time.day - 1      # 0-based index for days
-            start_hour = start_time.hour
-            start_minute = start_time.minute    # 0-based index for minutes
             
             # Append the task to the correct slot in the calendar
-            self.calendar[start_month][start_day][start_hour][start_minute].append(task)
+            self.calendar[start_month][start_day].append(task)
 
         print("Tasks added successfully!\n")
         
@@ -60,15 +58,22 @@ class Calendar:
         # Draw the grid
         ax.grid(True, which='both', axis='both', color='white', linestyle='-', linewidth=0)
 
-        # Loop through the day and plot tasks
-        for hour in range(24):
-            for minute in range(60):
-                tasks = self.calendar[month][day][hour][minute]
-                if tasks:
-                    # Place an elongated shape for each task
-                    duration = tasks[0].duration * 60
-                    ax.plot([minute, minute+duration], [hour, hour], color='#add8e6', linewidth=5)
-                    # ax.scatter(minute, hour, color='#add8e6', s=100, edgecolor='#add8e6', label="Task" if minute == 0 else "")
+
+        tasks = self.calendar[month][day]
+        if tasks:
+            # Place an elongated shape for each task
+            for task in tasks:
+                #change from string to timestamp object
+                start_time_str = task.start_time
+                start_time = self.fromString(start_time_str)
+
+                # storing details of the task
+                minute = start_time.minute
+                hour = start_time.hour
+                duration = task.duration * 60
+                ax.plot([minute, minute+duration], [hour, hour], color='#add8e6', linewidth=5)
+                ax.scatter(minute, hour, color='#add8e6', s=100, edgecolor='#add8e6', label="Task" if minute == 0 else "")
+                ax.text(minute, hour, task.title, color='black', fontsize=8, ha='left', va='center')
 
         # Display the plot
         plt.show()
@@ -109,12 +114,7 @@ class Calendar:
 
         for month in range(12):
             for day in range(31):
-                task_count = 0  # Initialize task count for the day
-                for hour in range(24):
-                    for minute in range(60):
-                        tasks = self.calendar[month][day][hour][minute]
-                        task_count += len(tasks)  # Count the tasks for this hour and minute
-                
+                task_count = len(self.calendar[month][day])
                 if task_count > 0:
                     # Assign color based on the task count
                     color = get_color(task_count)
@@ -124,18 +124,6 @@ class Calendar:
 
 def main():
     tasks = [
-        Task(
-            "quran",
-            "i have to revise and then recite it to mama as well",
-            7,
-            6,
-            2,
-            7,
-            "2024-12-31 23:59:59",
-            "2024-01-31 21:00:00",
-            "2024-12-31 23:59:59",
-            False
-        ),
         Task(
             "exercise",
             "30 minutes of cardio",

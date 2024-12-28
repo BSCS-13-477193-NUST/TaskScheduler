@@ -1,6 +1,8 @@
+import calendar
 from task import Task
 import matplotlib.pyplot as plt
 from timestamp import Timestamp
+import matplotlib.patches as patches
 
 class Calendar:
     # stores 60 minutes of every 24 hours of every day of every month of the year
@@ -73,7 +75,7 @@ class Calendar:
                 duration = task.duration * 60
                 ax.plot([minute, minute+duration], [hour, hour], color='#add8e6', linewidth=5)
                 ax.scatter(minute, hour, color='#add8e6', s=100, edgecolor='#add8e6', label="Task" if minute == 0 else "")
-                ax.text(minute, hour, task.title, color='black', fontsize=8, ha='left', va='center')
+                ax.text(minute, hour, task.title, color='black', fontsize=12, fontfamily='cursive', ha='left', va='center')
 
         # Display the plot
         plt.show()
@@ -121,6 +123,100 @@ class Calendar:
                     ax.scatter(day, month, color=color, s=100)  # Pl
 
         plt.show()
+
+    
+
+    def displayMonthlyCalendar(self, month):
+    
+        # Check if the month is valid
+        month = month - 1
+        if month < 0 or month >= 12:
+            print(f"Error: Month {month + 1} is out of range.")
+            return
+
+        # Get the number of days in the month and the starting weekday
+        year = 2025
+        days_in_month = calendar.monthrange(year, month + 1)[1]
+        start_weekday = calendar.monthrange(year, month + 1)[0]  # Monday = 0, Sunday = 6
+
+        # Set up the calendar grid (days on x-axis, weeks on y-axis)
+        fig, ax = plt.subplots(figsize=(12, 8))
+        ax.set_title(f"Task Calendar for {calendar.month_name[month + 1]} {year}")
+        ax.set_xlabel("Day of the Week")
+        ax.set_ylabel("Week of the Month")
+        
+        # Define x-axis labels (days of the week)
+        ax.set_xticks(range(7))
+        ax.set_xticklabels(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], fontsize=10)
+        
+        # Define y-axis labels (weeks)
+        num_weeks = (days_in_month + start_weekday + 6) // 7  # Calculate required number of weeks
+        ax.set_yticks(range(num_weeks))
+        ax.set_yticklabels([f"Week {i + 1}" for i in range(num_weeks)], fontsize=10)
+
+        # Set grid
+        ax.set_xlim(-0.5, 6.5)
+        ax.set_ylim(-0.5, num_weeks - 0.5)
+        ax.set_facecolor("white")
+
+        # Fetch the tasks for the given month
+        tasks_for_month = self.calendar[month]
+
+        # Map each day to its (week, day) coordinates
+        day_to_coordinates = {}
+        week = 0
+        for day in range(1, days_in_month + 1):
+            weekday = (start_weekday + day - 1) % 7
+            if weekday == 0 and day != 1:
+                week += 1  # Move to the next week
+            day_to_coordinates[day] = (week, weekday)
+
+        # Plot the calendar
+        for day in range(1, days_in_month + 1):
+            week, weekday = day_to_coordinates[day]
+            
+            # Display the date in the top-left corner of the grid cell
+            ax.text(
+                weekday + 0.3, week + 0.4,  # Adjust the position slightly
+                str(day),
+                fontsize=8,
+                color="black",
+                bbox=dict(facecolor='white', edgecolor='none', boxstyle='round,pad=0.1'),
+                ha="left",
+            )
+
+            # Fetch tasks for the current day
+            tasks = tasks_for_month[day - 1]
+            if tasks:
+                for i, task in enumerate(tasks):
+                    # Get task details
+                    start_time_str = task.start_time
+                    start_time = self.fromString(start_time_str)
+                    duration = task.duration
+
+                    # Plot a rectangle for the task
+                    rect = patches.Rectangle(
+                        (weekday - 0.4, week + i * 0.2 - 0.4),  # Adjust position to stack tasks within the same day
+                        width=0.8,  # Rectangle width
+                        height=0.15,  # Rectangle height
+                        color="#add8e6",  # Task color
+                        alpha=0.8,
+                    )
+                    ax.add_patch(rect)
+
+                    # Add task title within the rectangle
+                    ax.text(
+                        weekday, week + i * 0.2 - 0.4,
+                        task.title,
+                        fontsize=8,
+                        color="black",
+                        verticalalignment="center",
+                        horizontalalignment="center",
+                    )
+
+        plt.show()
+
+
 
 def main():
     tasks = [
@@ -729,8 +825,9 @@ def main():
     calendar.addTask(tasks)
 
     # Display tasks for a specific day
-    calendar.displayDailyTasks(month=1, day=31)  # Example: Display tasks for January 31st
-    calendar.displayYearlyCalendar()  # Display the yearly calendar
+    # calendar.displayDailyTasks(month=1, day=31)  # Example: Display tasks for January 31st
+    # calendar.displayYearlyCalendar()  # Display the yearly calendar
+    calendar.displayMonthlyCalendar(month=1)  # Example: Display tasks for February
 
 if __name__ == "__main__":
     main()

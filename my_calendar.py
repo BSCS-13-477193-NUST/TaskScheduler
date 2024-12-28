@@ -279,7 +279,19 @@ class Calendar:
 
         plt.show()
 
+    def clearCalendar(self):
+        self.calendar = [[[] for _ in range(31)] for _ in range(12)]
+        print("Calendar cleared successfully!\n")
 
+    def removeTask(self, taskTitle):
+        for month in range(12):
+            for day in range(31):
+                for task in self.calendar[month][day]:
+                    if task.title == taskTitle:
+                        self.calendar[month][day].remove(task)
+                        print(f"Task {task.title} removed successfully!\n")
+                        return
+        print(f"Task {task.title} not found in the calendar.\n")
 
 def main():
     tasks = [
@@ -903,6 +915,7 @@ def main():
     calendar.displayDailyTasks(month=2, day=1)  # Example: Display tasks for January 31st
     calendar.displayYearlyCalendar()  # Display the yearly calendar
     calendar.displayMonthlyCalendar(month=2)  # Example: Display tasks for February
-
+    calendar.removeTask('exercise')  # Remove the first task
+    calendar.displayMonthlyCalendar(month=2)  # Display tasks for February after removing the first task
 if __name__ == "__main__":
     main()

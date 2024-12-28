@@ -2,6 +2,7 @@ from task import Task
 from my_calendar import Calendar
 from timestamp import Timestamp
 from task_handler import TaskHandler
+from gui import GUI
 
 class Scheduler:
     calendar = Calendar()
@@ -29,6 +30,11 @@ class Scheduler:
             self.task_handler.save_tasks(self.tasks)
             st = st.addMinutes(self.mins[recurring])
             d = d.addMinutes(self.mins[recurring])
+
+    def remove_task(self, task):
+        self.tasks.remove(task)
+        self.task_handler.save_tasks(self.tasks)
+
             
     def place_task(self, task):
         month = task.start_time.month - 1
@@ -43,6 +49,8 @@ class Scheduler:
                 return existing_task
 
         return None
+
+    
 
     def solve_schedule(self):
         # Sort tasks by weightage (descending order)
@@ -85,6 +93,7 @@ class Scheduler:
 
 
     def display_tasks(self):
+        # GUI(self.tasks).run()
         if not self.tasks:
             print("No tasks to display.\n")
             return

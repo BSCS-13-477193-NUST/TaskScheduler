@@ -59,8 +59,8 @@ def menu():
                 if repeat < 1:
                     print("Invalid input. Task will be considered non-recurring by default.")
                     repeat = 1
-                elif repeat > 1000:
-                    repeat = 1000
+                elif repeat > 100:
+                    repeat = 100
             elif recurring_input == "n":
                 recurring = ""
             else:
@@ -201,7 +201,26 @@ def menu():
                 print("Task recurring status updated successfully!\n")
             elif edit_choice == "11":
                 print("Edit cancelled.\n")
+            scheduler.task_handler.save_tasks(scheduler.tasks)
 
+        elif choice == "3":
+            if not scheduler.tasks:
+                print("No tasks to complete.\n")
+                continue
+            try:
+                task_id = int(input("Enter task ID to complete: "))
+            except ValueError:
+                print("Invalid input. Please try again.")
+                continue
+
+            task = scheduler.get_task(task_id)
+            if task is None:
+                print("Task not found. Please try again.")
+                continue
+
+            task.set_completed(True)
+            scheduler.remove_task(task)
+            print("Task completed successfully!\n")
         elif choice == "4":
             scheduler.display_tasks()
 

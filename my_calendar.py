@@ -42,7 +42,7 @@ class Calendar:
             return
 
         fig, ax = plt.subplots(figsize=(10, 8))
-        ax.set_title(f"Tasks for {day + 1}-{month + 1}")
+        ax.set_title(f"Tasks for {day + 1}/{month + 1}/2025", fontweight = 'bold')
         ax.set_xlabel("Minute")
         ax.set_ylabel("Hour")
         
@@ -65,24 +65,65 @@ class Calendar:
         if tasks:
             # Place an elongated shape for each task
             for task in tasks:
-                #change from string to timestamp object
+                # Change from string to timestamp object
                 start_time_str = task.start_time
                 start_time = self.fromString(start_time_str)
 
-                # storing details of the task
+                # Storing details of the task
                 minute = start_time.minute
                 hour = start_time.hour
-                duration = task.duration * 60
-                ax.plot([minute, minute+duration], [hour, hour], color='#add8e6', linewidth=5)
-                ax.scatter(minute, hour, color='#add8e6', s=100, edgecolor='#add8e6', label="Task" if minute == 0 else "")
-                ax.text(minute, hour, task.title, color='black', fontsize=12, fontfamily='cursive', ha='left', va='center')
+                duration = task.duration * 60  # Convert duration to minutes
+                
+                # Calculate the number of full hours and remaining minutes
+                remaining_duration = duration
+                current_hour = hour
+                current_minute = minute
+                
+                while remaining_duration > 0:
+                    # Calculate time remaining in the current hour
+                    minutes_in_current_hour = 60 - current_minute
+                    
+                    # Determine the duration to display in the current hour
+                    duration_in_this_hour = min(remaining_duration, minutes_in_current_hour)
+                    
+                    # Plot the task segment in the current hour
+                    ax.plot(
+                        [current_minute, current_minute + duration_in_this_hour],
+                        [current_hour, current_hour],
+                        color='#add8e6',
+                        linewidth=5
+                    )
+                    ax.scatter(
+                        current_minute,
+                        current_hour,
+                        color='#add8e6',
+                        s=100,
+                        edgecolor='#add8e6',
+                        label="Task" if current_minute == minute and current_hour == hour else ""
+                    )
+                    ax.text(
+                        current_minute,
+                        current_hour,
+                        task.title,
+                        color='black',
+                        fontsize=12,
+                        fontfamily='cursive',
+                        ha='left',
+                        va='center'
+                    )
+                    
+                    # Update remaining duration and move to the next hour if needed
+                    remaining_duration -= duration_in_this_hour
+                    current_hour += 1  # Move to the next hour
+                    current_minute = 0  # Reset minute to the start of the next hour
+
 
         # Display the plot
         plt.show()
     
     def displayYearlyCalendar(self):
         fig, ax = plt.subplots(figsize=(10, 8))
-        ax.set_title("Task Calendar")
+        ax.set_title("Task Calendar", fontweight = 'bold')
         ax.set_xlabel("Day")
         ax.set_ylabel("Month")
         ax.set_xticks(range(31))
@@ -124,8 +165,6 @@ class Calendar:
 
         plt.show()
 
-    
-
     def displayMonthlyCalendar(self, month):
     
         # Check if the month is valid
@@ -141,22 +180,21 @@ class Calendar:
 
         # Set up the calendar grid (days on x-axis, weeks on y-axis)
         fig, ax = plt.subplots(figsize=(12, 8))
-        ax.set_title(f"Task Calendar for {calendar.month_name[month + 1]} {year}")
-        ax.set_xlabel("Day of the Week")
-        ax.set_ylabel("Week of the Month")
+        ax.set_title(f"Task Calendar for {calendar.month_name[month + 1]} {year}", fontweight='bold')
         
         # Define x-axis labels (days of the week)
         ax.set_xticks(range(7))
         ax.set_xticklabels(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"], fontsize=10)
-        
+
         # Define y-axis labels (weeks)
         num_weeks = (days_in_month + start_weekday + 6) // 7  # Calculate required number of weeks
         ax.set_yticks(range(num_weeks))
         ax.set_yticklabels([f"Week {i + 1}" for i in range(num_weeks)], fontsize=10)
 
-        # Set grid
+        # Set grid and invert the y-axis for top-to-bottom alignment
         ax.set_xlim(-0.5, 6.5)
         ax.set_ylim(-0.5, num_weeks - 0.5)
+        ax.invert_yaxis()  # Invert y-axis to display weeks top-to-bottom
         ax.set_facecolor("white")
 
         # Fetch the tasks for the given month
@@ -181,33 +219,58 @@ class Calendar:
                 str(day),
                 fontsize=8,
                 color="black",
-                bbox=dict(facecolor='white', edgecolor='none', boxstyle='round,pad=0.1'),
+                bbox=dict(facecolor='#add8e6', edgecolor='black', boxstyle='round,pad=0.1'),  # Light blue background with black border
                 ha="left",
+                va="center"
             )
+
+            # Add a background rectangle for the grid cell
+            rect = patches.Rectangle(
+                (weekday - 0.45, week - 0.4),  # Bottom-left corner of the rectangle
+                width=0.9,        # Width of the rectangle
+                height=0.9,       # Height of the rectangle
+                facecolor="#e0f7fa",  # Light cyan color for the rectangle
+                alpha=0.3,        # Transparency
+                edgecolor="grey", # Border color
+                linewidth=0.5,    # Border width
+            )
+            ax.add_patch(rect)
+
 
             # Fetch tasks for the current day
             tasks = tasks_for_month[day - 1]
             if tasks:
+                # Limit the number of tasks to 5
+                tasks = tasks[:4]
                 for i, task in enumerate(tasks):
                     # Get task details
                     start_time_str = task.start_time
                     start_time = self.fromString(start_time_str)
                     duration = task.duration
-
                     # Plot a rectangle for the task
                     rect = patches.Rectangle(
                         (weekday - 0.4, week + i * 0.2 - 0.4),  # Adjust position to stack tasks within the same day
                         width=0.8,  # Rectangle width
                         height=0.15,  # Rectangle height
-                        color="#add8e6",  # Task color
+                        facecolor="#add8e6",  # Task color
+                        edgecolor="grey",
                         alpha=0.8,
                     )
                     ax.add_patch(rect)
-
                     # Add task title within the rectangle
                     ax.text(
-                        weekday, week + i * 0.2 - 0.4,
+                        weekday, week + i * 0.2 - 0.3,
                         task.title,
+                        fontsize=8,
+                        color="black",
+                        verticalalignment="center",
+                        horizontalalignment="center",
+                    )
+                # Add dots to indicate more tasks
+                if len(tasks_for_month[day - 1]) > 4:
+                    ax.text(
+                        weekday, week + 0.4,
+                        "...",
                         fontsize=8,
                         color="black",
                         verticalalignment="center",
@@ -816,18 +879,30 @@ def main():
             1,
             2,
             "2024-12-31 23:59:59",
-            "2024-02-13 16:00:00",
+            "2024-02-01 16:00:00",
             "2024-02-13 17:00:00",
-            True)
+            True
+        ),
+        Task(
+            "shopping",
+            "buy groceries",
+            3,
+            2,
+            1.5,
+            3,
+            "2024-12-31 23:59:59",
+            "2024-02-01 09:00:00",
+            "2024-02-14 10:30:00",
+            True
+        )
     ]
-
     calendar = Calendar()
     calendar.addTask(tasks)
 
     # Display tasks for a specific day
-    # calendar.displayDailyTasks(month=1, day=31)  # Example: Display tasks for January 31st
-    # calendar.displayYearlyCalendar()  # Display the yearly calendar
-    calendar.displayMonthlyCalendar(month=1)  # Example: Display tasks for February
+    calendar.displayDailyTasks(month=2, day=1)  # Example: Display tasks for January 31st
+    calendar.displayYearlyCalendar()  # Display the yearly calendar
+    calendar.displayMonthlyCalendar(month=2)  # Example: Display tasks for February
 
 if __name__ == "__main__":
     main()

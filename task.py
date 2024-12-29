@@ -1,6 +1,5 @@
 from timestamp import Timestamp
 from settings import weights
-import random
 
 class Task:
     id: int
@@ -51,7 +50,7 @@ class Task:
             weights['completion window'] * completionWindow
         )
     def __str__(self) -> str:
-        return f"Task {self.id}: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\nScore: {self.fuel_cost}\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
+        return f"Task {self.id}: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\Fuel cost: {self.fuel_cost}\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
 
     def to_dict(self):
         return {
@@ -113,10 +112,10 @@ class Task:
     def get_duration(self) -> float:
         return self.duration
 
-    def set_score(self, score: float):
-        self.fuel_cost = score
+    def set_fuel_cost(self, fuel_cost: float):
+        self.fuel_cost = fuel_cost
 
-    def get_score(self) -> float:
+    def get_fuel_cost(self) -> float:
         return self.fuel_cost
 
     def set_deadline(self, deadline: Timestamp):

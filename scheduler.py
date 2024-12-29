@@ -12,12 +12,12 @@ class Scheduler:
         #initialize task list
         self.tasks = self.task_handler.load_tasks()
 
-    def add_task(self, name, description, priority, difficulty, duration, score, deadline, 
+    def add_task(self, name, description, priority, difficulty, duration, fuel_cost, deadline, 
                  start_time, end_time, delayable, recurring, repeat):
         st = start_time
         d = deadline
         for i in range(repeat):
-            task = Task(name, description, priority, difficulty, duration, score, d, st, st.addMinutes(duration * 60), delayable, recurring, repeat)
+            task = Task(name, description, priority, difficulty, duration, fuel_cost, d, st, st.addMinutes(duration * 60), delayable, recurring, repeat)
             task.calculate_weightage()
             self.tasks.append(task)
             if recurring == "d":
@@ -87,6 +87,7 @@ class Scheduler:
                     #if task conflicts, still add task but with a shortened duration but still within same time
                     task.duration = task.start_time.addMinutes(conflicting_task.start_time.getMinutesLeft())
                     continue
+            
 
 
         for task in unabsolute_tasks: #dynamic constraints

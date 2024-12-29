@@ -4,7 +4,20 @@ from my_calendar import Calendar
 
 def menu():
     scheduler = Scheduler()
-
+    print(r"""
+     __          ________ _      _____ ____  __  __ ______    _______ ____       
+     \ \        / |  ____| |    / ____/ __ \|  \/  |  ____|  |__   __/ __ \      
+      \ \  /\  / /| |__  | |   | |   | |  | | \  / | |__        | | | |  | |     
+       \ \/  \/ / |  __| | |   | |   | |  | | |\/| |  __|       | | | |  | |      _____   __   __
+        \  /\  /  | |____| |___| |___| |__| | |  | | |____      | | | |__| |     |_   _| |  \ /  |
+  _  __  \/  \/   |______|______\_____\____/|_|  |_|______|     |_|  \____/_  __   | |   | | V | |
+ | |/ /   /\       /\   |  \/  |  |__   __|/\   |  \/  |   /\       /\   |  \/  |  |_|   |_|   |_|
+ | ' /   /  \     /  \  | \  / |     | |  /  \  | \  / |  /  \     /  \  | \  / |
+ |  <   / /\ \   / /\ \ | |\/| |     | | / /\ \ | |\/| | / /\ \   / /\ \ | |\/| |
+ | . \ / ____ \ / ____ \| |  | |     | |/ ____ \| |  | |/ ____ \ / ____ \| |  | |
+ |_|\_/_/    \_/_/    \_|_|  |_|     |_/_/    \_|_|  |_/_/    \_/_/    \_|_|  |_|
+                                                                                                                                                        
+""")
     while True:
         print("\nTask Management System")
         print("1. Add Task")
@@ -71,7 +84,7 @@ def menu():
                                deadline, start_time, start_time.addMinutes(duration*60), delayable, recurring, repeat)
             
             print("Task added successfully!\n")
-
+            scheduler.task_handler.save_tasks(scheduler.tasks)
         elif choice == "2":
             if not scheduler.tasks:
                 print("No tasks to edit.\n")
@@ -202,7 +215,6 @@ def menu():
             elif edit_choice == "11":
                 print("Edit cancelled.\n")
             scheduler.task_handler.save_tasks(scheduler.tasks)
-
         elif choice == "3":
             if not scheduler.tasks:
                 print("No tasks to complete.\n")
@@ -220,25 +232,43 @@ def menu():
 
             task.set_completed(True)
             scheduler.remove_task(task)
+            scheduler.calendar.removeTask(task)
+            scheduler.task_handler.save_tasks(scheduler.tasks)
             print("Task completed successfully!\n")
         elif choice == "4":
             scheduler.display_tasks()
 
         elif choice == "5":
             scheduler.solve_schedule()
+            scheduler.task_handler.save_tasks(scheduler.tasks)
 
         elif choice == "6":
             if not scheduler.tasks:
                 print("No tasks to display.\n")
                 continue
-            if not scheduler.written:
-                print("Optimising schedule...")
-                scheduler.solve_schedule()
-                scheduler.written = True
-            print("Displaying calendar...")
-            scheduler.calendar.printCalendar()
+            print("Optimising schedule...")
+            scheduler.solve_schedule()
+            while True:
+                print("1. Display day schedule\n2. Display month schedule\n3. Display year schedule")
+                choice = input("Enter your choice: ")
+                if choice == "1":
+                    day = int(input("Enter day to display (1-31): "))
+                    month = int(input("Enter month to display (1-12): "))
+                    scheduler.calendar.displayDailyTasks(month, day)
+                    break
+                elif choice == "2":
+                    month = int(input("Enter month to display (1-12): "))
+                    scheduler.calendar.displayMonthlyCalendar(month)
+                    break
+                elif choice == "3":
+                    scheduler.calendar.displayYearlyCalendar()
+                    break
+                else:
+                    print("Invalid choice. Please try again.")
         elif choice == "7":
+            scheduler.tasks = []
             scheduler.calendar.clearCalendar()
+            scheduler.task_handler.save_tasks(scheduler.tasks)
             print("Calendar cleared.\n")
         elif choice == "8":
             print("Exiting the Task Management System. Goodbye!")

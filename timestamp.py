@@ -37,6 +37,23 @@ class Timestamp:
     def getDifference(self, timestamp: 'Timestamp') -> int:
         return (self.year - timestamp.year) * 525600 + (self.month - timestamp.month) * 43800 + (self.day - timestamp.day) * 1440 + (self.hour - timestamp.hour) * 60 + (self.minute - timestamp.minute)
 
+    def isBefore(self, timestamp: 'Timestamp') -> bool:
+        if self.year < timestamp.year:
+            return True
+        elif self.year == timestamp.year:
+            if self.month < timestamp.month:
+                return True
+            elif self.month == timestamp.month:
+                if self.day < timestamp.day:
+                    return True
+                elif self.day == timestamp.day:
+                    if self.hour < timestamp.hour:
+                        return True
+                    elif self.hour == timestamp.hour:
+                        if self.minute < timestamp.minute:
+                            return True
+        return False
+
     def getMinutesLeft(self) -> int:
         time1 = Timestamp.getCurrentTimestamp()
         return self.getDifference(time1)
@@ -68,6 +85,47 @@ class Timestamp:
             if temp.month > 12:
                 temp.month = 1
                 temp.year += 1
+        return temp
+
+    def addDays(self, days: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
+        temp.day += days
+        while temp.day > Timestamp.days_in_month[temp.month]:
+            #adjust for leap year
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day -= 29
+                        temp.month += 1
+                    else:
+                        break
+                else:
+                    temp.day -= 28
+                    temp.month += 1
+            else:
+                temp.day -= Timestamp.days_in_month[temp.month]
+                temp.month += 1
+            if temp.month > 12:
+                temp.month = 1
+                temp.year += 1
+        return temp
+
+    def addMonths(self, months: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
+        temp.month += months
+        while temp.month > 12:
+            temp.month -= 12
+            temp.year += 1
+        # Adjust the day if it exceeds the maximum days in the resulting month
+        if temp.day > Timestamp.days_in_month[temp.month]:
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day = 29
+                else:
+                    temp.day = 28
+            else:
+                temp.day = Timestamp.days_in_month[temp.month]
         return temp
 
     @staticmethod

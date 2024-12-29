@@ -1,4 +1,5 @@
 from task import Task
+from timestamp import Timestamp
 import json
 
 class TaskHandler:
@@ -25,4 +26,8 @@ class TaskHandler:
 
     def save_tasks(self, tasks):
         with open(self.file_path, 'w') as file:
-            json.dump([task.to_dict() for task in tasks], file, indent=4)
+            file.truncate(0)  # Empty the file completely
+            task_dicts = []
+            for task in tasks:
+                task_dicts.append(task.to_dict())
+            json.dump(task_dicts, file, indent=4)

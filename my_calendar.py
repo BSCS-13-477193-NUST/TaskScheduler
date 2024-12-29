@@ -9,10 +9,14 @@ class Calendar:
     calendar = [[[] for _ in range(31)] for _ in range(12)]
     days_in_month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  # Number of days in each month
     
+    def clearCalendar(self):
+        self.calendar = [[[] for _ in range(31)] for _ in range(12)]
+
     def addTask(self, tasks):
+        self.clearCalendar()
         for task in tasks:
-            start_time_str = task.start_time
-            start_time = self.fromString(start_time_str)
+            
+            start_time = task.start_time
 
             # Access the components of the Timestamp object
             start_month = start_time.month - 1  # 0-based index for months
@@ -21,17 +25,7 @@ class Calendar:
             # Append the task to the correct slot in the calendar
             self.calendar[start_month][start_day].append(task)
 
-        print("Tasks added successfully!\n")
-        
-    @staticmethod
-    def fromString(start_time_str: str) -> 'Timestamp':
-        # Split string like "2024-01-31 21:59:59"
-        date_str, time_str = start_time_str.split(' ')
-        year, month, day = map(int, date_str.split('-'))
-        hour, minute, _ = map(int, time_str.split(':'))
-        
-        # Return Timestamp object
-        return Timestamp(minute, hour, day, month, year)
+    
 
     def displayDailyTasks(self, month, day):
         # Check if the day is valid for the given month
@@ -66,8 +60,7 @@ class Calendar:
             # Place an elongated shape for each task
             for task in tasks:
                 # Change from string to timestamp object
-                start_time_str = task.start_time
-                start_time = self.fromString(start_time_str)
+                start_time = task.start_time
 
                 # Storing details of the task
                 minute = start_time.minute
@@ -244,8 +237,7 @@ class Calendar:
                 tasks = tasks[:4]
                 for i, task in enumerate(tasks):
                     # Get task details
-                    start_time_str = task.start_time
-                    start_time = self.fromString(start_time_str)
+                    start_time = task.start_time
                     duration = task.duration
                     # Plot a rectangle for the task
                     rect = patches.Rectangle(
@@ -279,6 +271,14 @@ class Calendar:
 
         plt.show()
 
+    def removeTask(self, taskID):
+        for month in range(12):
+            for day in range(31):
+                if self.calendar[month][day]:
+                    for task in self.calendar[month][day]:
+                        if task.id == taskID:
+                            self.calendar[month][day].remove(task)
+        return
 
 
 def main():
@@ -900,9 +900,13 @@ def main():
     calendar.addTask(tasks)
 
     # Display tasks for a specific day
-    calendar.displayDailyTasks(month=2, day=1)  # Example: Display tasks for January 31st
-    calendar.displayYearlyCalendar()  # Display the yearly calendar
+    # calendar.displayDailyTasks(month=2, day=1)  # Example: Display tasks for January 31st
+    # calendar.displayYearlyCalendar()  # Display the yearly calendar
     calendar.displayMonthlyCalendar(month=2)  # Example: Display tasks for February
-
+    print(calendar.calendar[1])
+    calendar.removeTask('exercise')  # Remove the first task
+    print(calendar.calendar[1])
+    calendar.displayMonthlyCalendar(month=2)  # Display tasks for February after removing the first task
+    
 if __name__ == "__main__":
     main()

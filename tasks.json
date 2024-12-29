@@ -1,317 +1,142 @@
 [
     {
         "id": 1,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
+        "title": "laundry",
+        "description": "dfnkjdsf",
+        "priority": 1,
+        "difficulty": 1,
+        "duration": 1.0,
+        "fuel_cost": 1.0,
         "deadline": {
             "year": 2024,
             "month": 12,
-            "day": 28,
+            "day": 29,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2024,
             "month": 12,
-            "day": 28,
-            "hour": 17,
+            "day": 29,
+            "hour": 22,
             "minute": 0
         },
         "end_time": {
             "year": 2024,
             "month": 12,
-            "day": 28,
-            "hour": 19,
+            "day": 29,
+            "hour": 23,
             "minute": 0.0
         },
-        "delayable": true,
+        "delayable": false,
         "completed": false,
-        "weightage": -556.0,
-        "recurring": "d",
-        "repeat": 9
+        "weightage": -410.7,
+        "recurring": "w",
+        "repeat": 5
     },
     {
         "id": 2,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
+        "title": "laundry",
+        "description": "dfnkjdsf",
+        "priority": 1,
+        "difficulty": 1,
+        "duration": 1.0,
+        "fuel_cost": 1.0,
         "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 29,
+            "year": 2025,
+            "month": 1,
+            "day": 5,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 29,
-            "hour": 17,
+            "year": 2025,
+            "month": 1,
+            "day": 5,
+            "hour": 22,
             "minute": 0
         },
         "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 29,
-            "hour": 19,
-            "minute": 0.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -2716.0,
-        "recurring": "d",
-        "repeat": 9
-    },
-    {
-        "id": 3,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
-        "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
+            "year": 2025,
+            "month": 1,
+            "day": 5,
             "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 17,
-            "minute": 0
-        },
-        "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 19,
             "minute": 0.0
         },
-        "delayable": true,
+        "delayable": false,
         "completed": false,
-        "weightage": -4876.0,
-        "recurring": "d",
-        "repeat": 9
+        "weightage": -14270.7,
+        "recurring": "w",
+        "repeat": 5
     },
     {
         "id": 4,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
+        "title": "laundry",
+        "description": "hehehehehehhehe",
+        "priority": 1,
+        "difficulty": 1,
+        "duration": 1.0,
+        "fuel_cost": 1.0,
         "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
+            "year": 2025,
+            "month": 1,
+            "day": 19,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 17,
+            "year": 2025,
+            "month": 1,
+            "day": 19,
+            "hour": 22,
             "minute": 0
         },
         "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 19,
+            "year": 2025,
+            "month": 1,
+            "day": 19,
+            "hour": 23,
             "minute": 0.0
         },
-        "delayable": true,
+        "delayable": false,
         "completed": false,
-        "weightage": -7036.0,
-        "recurring": "d",
-        "repeat": 9
+        "weightage": -44510.7,
+        "recurring": "w",
+        "repeat": 5
     },
     {
         "id": 5,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
+        "title": "laundry",
+        "description": "dfnkjdsf",
+        "priority": 1,
+        "difficulty": 1,
+        "duration": 1.0,
+        "fuel_cost": 1.0,
         "deadline": {
             "year": 2025,
             "month": 1,
-            "day": 1,
+            "day": 26,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
             "month": 1,
-            "day": 1,
-            "hour": 17,
+            "day": 26,
+            "hour": 22,
             "minute": 0
         },
         "end_time": {
             "year": 2025,
             "month": 1,
-            "day": 1,
-            "hour": 19,
-            "minute": 0.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -7936.0,
-        "recurring": "d",
-        "repeat": 9
-    },
-    {
-        "id": 6,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 2,
+            "day": 26,
             "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 2,
-            "hour": 17,
-            "minute": 0
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 2,
-            "hour": 19,
             "minute": 0.0
         },
-        "delayable": true,
+        "delayable": false,
         "completed": false,
-        "weightage": -10096.0,
-        "recurring": "d",
-        "repeat": 9
-    },
-    {
-        "id": 7,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 3,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 3,
-            "hour": 17,
-            "minute": 0
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 3,
-            "hour": 19,
-            "minute": 0.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -12256.0,
-        "recurring": "d",
-        "repeat": 9
-    },
-    {
-        "id": 8,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 4,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 4,
-            "hour": 17,
-            "minute": 0
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 4,
-            "hour": 19,
-            "minute": 0.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -14416.0,
-        "recurring": "d",
-        "repeat": 9
-    },
-    {
-        "id": 9,
-        "title": "study",
-        "description": "idk man study anything ffs",
-        "priority": 4,
-        "difficulty": 8,
-        "duration": 2.0,
-        "fuel_cost": 5.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 5,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 5,
-            "hour": 17,
-            "minute": 0
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 5,
-            "hour": 19,
-            "minute": 0.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -16576.0,
-        "recurring": "d",
-        "repeat": 9
+        "weightage": -59630.7,
+        "recurring": "w",
+        "repeat": 5
     }
 ]

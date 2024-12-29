@@ -55,49 +55,60 @@ class Scheduler:
         return None
 
     def solve_schedule(self):
-        # Sort tasks by weightage (descending order)
-        self.tasks.sort(key=lambda x: x.weightage, reverse=True)
+        absolute_tasks = []
+        unabsolute_tasks = []
 
-        # Get the current time
         current_time = Timestamp.getCurrentTimestamp()
 
         for task in self.tasks:
-            # Skip completed tasks
             if task.completed:
                 self.tasks.remove(task)
                 continue
-
-            if not task.delayable:
-                # For non-delayable tasks, ensure they are scheduled within their constraints
-                if task.end_time.isBefore(current_time):
-                    # Task has already started and ended, skip it
-                    self.tasks.remove(task)
-                    continue
-                elif task.start_time.isBefore(current_time) and current_time.isBefore(task.end_time):
-                    task.start_time = current_time
-                    task.duration = current_time.addMinutes(task.end_time.getMinutesLeft())
-
+            if task.delayable:
+                unabsolute_tasks.append(task)
             else:
-                # For delayable tasks, start from the later of current time or original start time
-                if current_time.isBefore(task.start_time):
-                    task.start_time = task.start_time
-                else:
-                    task.start_time = current_time
-                task.end_time = task.start_time.addMinutes(task.duration * 60)
+                absolute_tasks.append(task)
+        
+        #sort both lists by weightage (descending)
+        absolute_tasks.sort(key=lambda x: x.weightage, reverse=True)
+        unabsolute_tasks.sort(key=lambda x: x.weightage, reverse=True)
 
+        for task in absolute_tasks: #strict constraints
+            if task.end_time.isBefore(current_time):
+                self.tasks.remove(task)
+                continue
+            elif task.start_time.isBefore(current_time) and current_time.isBefore(task.end_time):
+                task.start_time = current_time
+                task.duration = current_time.addMinutes(task.end_time.getMinutesLeft())
+            else:
+                #check if task conflicts with an existing task
                 conflicting_task = self.place_task(task)
-                while conflicting_task is not None:
-                    # Push the conflicting task forward
-                    task.start_time = conflicting_task.end_time.addMinutes(5)
-                    task.end_time = task.start_time.addMinutes(task.duration * 60)
-                    conflicting_task = self.place_task(task)
+                if conflicting_task is not None:
+                    #if task conflicts, still add task but with a shortened duration but still within same time
+                    task.duration = task.start_time.addMinutes(conflicting_task.start_time.getMinutesLeft())
+                    continue
+
+
+        for task in unabsolute_tasks: #dynamic constraints
+            # For delayable tasks, start from the later of current time or original start time
+            if current_time.isBefore(task.start_time):
+                task.start_time = task.start_time
+            else:
+                task.start_time = current_time
+            task.end_time = task.start_time.addMinutes(task.duration * 60)
+
+            conflicting_task = self.place_task(task)
+            while conflicting_task is not None:
+                # Push the conflicting task forward
+                task.start_time = conflicting_task.end_time.addMinutes(5)
+                task.end_time = task.start_time.addMinutes(task.duration * 60)
+                conflicting_task = self.place_task(task)
 
             current_time = task.end_time.addMinutes(5)
         self.calendar.addTask(self.tasks)
         self.task_handler.save_tasks(self.tasks)
 
     def display_tasks(self):
-        # GUI(self.tasks).run()
         if not self.tasks:
             print("No tasks to display.\n")
             return

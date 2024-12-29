@@ -2,16 +2,6 @@ from timestamp import Timestamp
 from settings import weights
 import random
 
-class TaskIDGenerator:
-    avail_ids = [i for i in range(1000, 9999)]
-
-    @classmethod
-    def generate_id(cls):
-        i = random.randint(0, len(cls.avail_ids) - 1)
-        new_id = cls.avail_ids[i]
-        cls.avail_ids.remove(new_id)
-        return new_id
-
 class Task:
     id: int
     title: str

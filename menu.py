@@ -61,7 +61,7 @@ def menu():
                     repeat = 1
                 elif repeat > 100:
                     repeat = 100
-            elif recurring_input == "n":
+            elif r_input == "n":
                 recurring = ""
             else:
                 print("Invalid input. Task will be considered non-recurring by default.")
@@ -191,7 +191,7 @@ def menu():
                         repeat = 1
                     elif repeat > 1000:
                         repeat = 1000
-                elif recurring_input == "n":
+                elif r_input == "n":
                     recurring = ""
                 else:
                     print("Invalid input. Task will be considered non-recurring by default.")
@@ -234,7 +234,7 @@ def menu():
             if not scheduler.written:
                 print("Optimising schedule...")
                 scheduler.solve_schedule()
-                scheduler.written = true
+                scheduler.written = True
             print("Displaying calendar...")
             scheduler.calendar.printCalendar()
         elif choice == "7":

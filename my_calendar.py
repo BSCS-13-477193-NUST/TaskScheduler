@@ -925,3 +925,22 @@ def main():
     
 if __name__ == "__main__":
     main()
+
+
+def advanceTime(self, gameState):
+    # Tracks updated beliefs after one time step
+    updatedBeliefs = util.Counter()
+
+    # Loop through all prior positions with non-zero belief
+    for priorPosition in self.legalPositions:
+        if self.beliefs[priorPosition] > 0:
+            # Get the distribution over possible new positions for the ghost
+            potentialNewPositionDist = self.getPositionDistribution(self.setGhostPosition(gameState, priorPosition))
+
+            # Update beliefs for each possible new position
+            for newPosition, transitionProbability in potentialNewPositionDist.items():
+                updatedBeliefs[newPosition] += self.beliefs[priorPosition] * transitionProbability
+
+    # Normalize the updated beliefs and apply them to the class's beliefs
+    updatedBeliefs.normalize()
+    self.beliefs = updatedBeliefs

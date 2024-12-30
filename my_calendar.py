@@ -41,7 +41,6 @@ class Calendar:
                     task.priority,
                     task.difficulty,
                     remaining_duration,
-                    task.fuel_cost,
                     task.deadline,
                     Timestamp.getDate(f"2024-{next_day.month:02d}-{next_day.day:02d} 00:00"),
                     task.end_time,

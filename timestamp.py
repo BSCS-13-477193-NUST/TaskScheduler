@@ -50,7 +50,7 @@ class Timestamp:
                     if self.hour < timestamp.hour:
                         return True
                     elif self.hour == timestamp.hour:
-                        if self.minute < timestamp.minute:
+                        if self.minute <= timestamp.minute:
                             return True
         return False
 

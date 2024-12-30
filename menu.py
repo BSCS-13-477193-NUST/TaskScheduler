@@ -46,10 +46,6 @@ def menu():
                     if duration < 0:
                         print("Invalid input. Please try again.")
                         continue
-                    fuel_cost = float(input("Enter task fuel cost (-100 to 100): "))
-                    if fuel_cost < -100 or fuel_cost > 100:
-                        print("Invalid input. Please try again.")
-                        continue
                     
                     deadline = Timestamp.getDate(input("Enter deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if deadline is None:
@@ -92,7 +88,7 @@ def menu():
                     print("Invalid input. Task will be considered non-recurring by default.")
                     recurring = ""
 
-                scheduler.add_task(name, description, priority, difficulty, duration, fuel_cost, 
+                scheduler.add_task(name, description, priority, difficulty, duration, 
                                 deadline, start_time, start_time.addMinutes(duration*60), delayable, recurring, repeat)
                 
                 print("Task added successfully!\n")
@@ -124,12 +120,11 @@ def menu():
                 print("3. Priority")
                 print("4. Difficulty")
                 print("5. Duration")
-                print("6. Fuel cost")
-                print("7. Deadline")
-                print("8. Start Time")
-                print("9. Delayable")
-                print("10. Recurring")
-                print("11. Cancel")
+                print("6. Deadline")
+                print("7. Start Time")
+                print("8. Delayable")
+                print("9. Recurring")
+                print("10. Cancel")
                 edit_choice = input("Enter your choice: ")
 
                 if edit_choice == "1":
@@ -168,32 +163,22 @@ def menu():
                         continue
                     task.set_duration(duration)
                     print("Task duration updated successfully!\n")
-
-                elif edit_choice == "6":
-                    try:
-                        fuel_cost = float(input("Enter new task fuel cost (1-10): "))
-                    except ValueError:
-                        print("Invalid input. Please try again.")
-                        continue
-
-                    task.set_fuel_cost(fuel_cost)
-                    print("Task fuel cost updated successfully!\n")
                 
-                elif edit_choice == "7":
+                elif edit_choice == "6":
                     deadline = Timestamp.getDate(input("Enter new deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if deadline is None:
                         continue
                     task.set_deadline(deadline)
                     print("Task deadline updated successfully!\n")
                 
-                elif edit_choice == "8":
+                elif edit_choice == "7":
                     start_time = Timestamp.getDate(input("Enter new start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if start_time is None:
                         continue
                     task.set_start_time(start_time)
                     print("Task start time updated successfully!\n")
                 
-                elif edit_choice == "9":
+                elif edit_choice == "8":
                     delayable_input = input("Is task delayable? (y/n): ")
                     if delayable_input == "y":
                         delayable = True
@@ -205,7 +190,7 @@ def menu():
                     task.set_delayable(delayable)
                     print("Task delayable status updated successfully!\n")
 
-                elif edit_choice == "10":
+                elif edit_choice == "9":
                     repeat = 1
                     r_input = input("Is task recurring? (y/n): ")
                     if r_input == "y":
@@ -228,7 +213,7 @@ def menu():
                     task.set_repeat(repeat)
                     task.set_recurring(recurring)
                     print("Task recurring status updated successfully!\n")
-                elif edit_choice == "11":
+                elif edit_choice == "10":
                     print("Edit cancelled.\n")
                 scheduler.task_handler.save_tasks(scheduler.tasks)
             except ValueError or IndexError or KeyError or AttributeError or TypeError:

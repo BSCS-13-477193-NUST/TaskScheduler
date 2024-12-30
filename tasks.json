@@ -1,1 +1,72 @@
-[]
+[
+    {
+        "id": 2,
+        "title": "laundry",
+        "description": "fdge",
+        "priority": 2,
+        "difficulty": 1,
+        "duration": 1.0,
+        "fuel_cost": 10.0,
+        "deadline": {
+            "year": 2024,
+            "month": 12,
+            "day": 30,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 30,
+            "hour": 21,
+            "minute": 5.0
+        },
+        "end_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 30,
+            "hour": 22,
+            "minute": 5.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -739.0,
+        "recurring": "",
+        "repeat": 1
+    },
+    {
+        "id": 1,
+        "title": "study",
+        "description": "fsdfsfs",
+        "priority": 2,
+        "difficulty": 6,
+        "duration": 4.0,
+        "fuel_cost": 50.0,
+        "deadline": {
+            "year": 2024,
+            "month": 12,
+            "day": 30,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 30,
+            "hour": 22,
+            "minute": 10.0
+        },
+        "end_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 2,
+            "minute": 10.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -983.0,
+        "recurring": "",
+        "repeat": 1
+    }
+]

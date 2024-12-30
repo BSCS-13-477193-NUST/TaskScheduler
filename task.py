@@ -7,8 +7,6 @@ class Task:
     description: str
     priority: int
     difficulty: int
-    fuel_cost: float
-
     duration: float
     deadline: Timestamp
     start_time: Timestamp
@@ -19,7 +17,7 @@ class Task:
     repeat: int
     weightage: float
     i = 1
-    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, fuel_cost: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool, recurring: str, repeat: int) -> None:
+    def __init__(self, title: str, description: str, priority: int, difficulty: int, duration: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool, recurring: str, repeat: int) -> None:
         self.id = self.i
         Task.i += 1
         self.title = title
@@ -27,7 +25,6 @@ class Task:
         self.priority = priority
         self.difficulty = difficulty
         self.duration = duration
-        self.fuel_cost = fuel_cost
         self.deadline = deadline
         self.start_time = start_time
         self.end_time = end_time
@@ -45,12 +42,11 @@ class Task:
             weights['priority'] * self.priority +
             weights['difficulty'] * self.difficulty -
             weights['duration'] * self.duration -
-            weights['fuel_cost'] * self.fuel_cost -
             weights['deadline'] * deadlineMins -
             weights['completion window'] * completionWindow
         )
     def __str__(self) -> str:
-        return f"Task {self.id}: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\Fuel cost: {self.fuel_cost}\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
+        return f"Task {self.id}: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
 
     def to_dict(self):
         return {
@@ -60,7 +56,6 @@ class Task:
             'priority': self.priority,
             'difficulty': self.difficulty,
             'duration': self.duration,
-            'fuel_cost': self.fuel_cost,
             'deadline': self.deadline.to_dict(),
             'start_time': self.start_time.to_dict(),
             'end_time': self.end_time.to_dict(),
@@ -79,7 +74,6 @@ class Task:
             data['priority'],
             data['difficulty'],
             data['duration'],
-            data['fuel_cost'],
             Timestamp.from_dict(data['deadline']),
             Timestamp.from_dict(data['start_time']),
             Timestamp.from_dict(data['end_time']),
@@ -111,12 +105,6 @@ class Task:
 
     def get_duration(self) -> float:
         return self.duration
-
-    def set_fuel_cost(self, fuel_cost: float):
-        self.fuel_cost = fuel_cost
-
-    def get_fuel_cost(self) -> float:
-        return self.fuel_cost
 
     def set_deadline(self, deadline: Timestamp):
         self.deadline = deadline
@@ -180,9 +168,3 @@ class Task:
 
     def set_weightage(self, weightage: float):
         self.weightage = weightage
-
-    def get_fuel_cost(self) -> float:
-        return self.fuel_cost
-    
-    def set_fuel_cost(self, fuel_cost: float):
-        self.fuel_cost = fuel_cost

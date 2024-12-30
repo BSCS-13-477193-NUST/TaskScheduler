@@ -9,7 +9,7 @@ class Task:
     difficulty: int
     fuel_cost: float
 
-    duration: float
+    duration: float         #hours
     deadline: Timestamp
     start_time: Timestamp
     end_time: Timestamp

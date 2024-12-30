@@ -7,7 +7,7 @@ class Task:
     description: str
     priority: int
     difficulty: int
-    duration: float
+    duration: float         #hours
     deadline: Timestamp
     start_time: Timestamp
     end_time: Timestamp

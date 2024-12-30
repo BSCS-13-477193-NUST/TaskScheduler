@@ -26,7 +26,7 @@ class TaskHandler:
 
     def save_tasks(self, tasks):
         with open(self.file_path, 'w') as file:
-            file.truncate(0)  # Empty the file completely
+            file.truncate(0)  #empty file
             task_dicts = []
             for task in tasks:
                 task_dicts.append(task.to_dict())

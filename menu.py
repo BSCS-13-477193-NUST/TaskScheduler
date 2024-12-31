@@ -32,6 +32,7 @@ def menu():
         if choice == "1":
             try:
                 try:
+                    current_time = Timestamp.getCurrentTimestamp()
                     name = input("📝 Enter task name: ")
                     description = input("📝 Enter task description: ")
                     priority = int(input("⚡ Enter priority level (0-10): "))
@@ -57,10 +58,10 @@ def menu():
                     if start_time > deadline:
                         print("❌ Invalid input. Start time cannot be after deadline. Please try again.")
                         continue
-                    if start_time <= Timestamp.getCurrentTimestamp():
-                        print("❌ Invalid input. Start time cannot be before or at current time. Please try again.")
+                    if start_time < current_time:
+                        print("❌ Invalid input. Start time cannot be before current time. Please try again.")
                         continue
-                    
+
                 except ValueError:
                     print("❌ Invalid input. Please try again.")
                     continue

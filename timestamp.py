@@ -176,7 +176,7 @@ class Timestamp:
         return Timestamp(minute, hour, day, month, year)
 
     def __str__(self) -> str:
-        return f"{self.hour:02}:{self.minute:02} {self.day:02}/{self.month:02}/{self.year}" 
+        return f"{int(self.hour):02}:{int(self.minute):02} {self.day:02}/{self.month:02}/{self.year}" 
 
     def to_dict(self):
         return {

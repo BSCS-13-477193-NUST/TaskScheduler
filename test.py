@@ -1,5 +1,5 @@
-i = 0
-while i < 5:
-    i +=1
-else:
-    print(i)
+
+arr = [1, 2, 3]
+for num in arr:
+    num = 0
+print(arr)

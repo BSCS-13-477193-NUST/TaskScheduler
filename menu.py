@@ -43,7 +43,7 @@ def menu():
                         print("❌ Invalid input. Please try again.")
                         continue
                     duration = float(input("⏳ Enter task duration in hours: "))
-                    if duration < 0:
+                    if duration <= 0:
                         print("❌ Invalid input. Please try again.")
                         continue
 
@@ -54,7 +54,13 @@ def menu():
                     start_time = Timestamp.getDate(input("🕒 Enter start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if start_time is None:
                         continue
-
+                    if start_time > deadline:
+                        print("❌ Invalid input. Start time cannot be after deadline. Please try again.")
+                        continue
+                    if start_time <= Timestamp.getCurrentTimestamp():
+                        print("❌ Invalid input. Start time cannot be before or at current time. Please try again.")
+                        continue
+                    
                 except ValueError:
                     print("❌ Invalid input. Please try again.")
                     continue

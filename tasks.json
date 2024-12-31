@@ -1,70 +1,104 @@
 [
     {
-        "id": 51,
-        "title": "study",
-        "description": "fdskjnkf",
-        "priority": 2,
-        "difficulty": 1,
-        "duration": 4.0,
+        "id": 5,
+        "title": "focp clas (2)",
+        "description": "srwdf",
+        "priority": 9,
+        "difficulty": 2,
+        "duration": 0.5,
         "deadline": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 15,
+            "hour": 19,
             "minute": 0
         },
         "start_time": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 23,
+            "hour": 17,
             "minute": 0
         },
         "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 1,
-            "hour": 3,
-            "minute": 0.0
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 17,
+            "minute": 30
         },
         "delayable": false,
         "completed": false,
-        "weightage": 6.0,
-        "recurring": "d",
-        "repeat": 2
+        "weightage": 31.0,
+        "recurring": "",
+        "repeat": 1
     },
     {
-        "id": 52,
-        "title": "study",
-        "description": "fdskjnkf",
-        "priority": 2,
+        "id": 4,
+        "title": "interview",
+        "description": "nskjnff",
+        "priority": 10,
         "difficulty": 1,
-        "duration": 4.0,
+        "duration": 0.5,
         "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 1,
-            "hour": 15,
-            "minute": 0
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 18,
+            "minute": 30
         },
         "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 1,
-            "hour": 23,
-            "minute": 0
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 17,
+            "minute": 30
         },
         "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 2,
-            "hour": 3,
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 18,
             "minute": 0.0
         },
         "delayable": false,
         "completed": false,
-        "weightage": 6.0,
-        "recurring": "d",
-        "repeat": 2
+        "weightage": 32.0,
+        "recurring": "",
+        "repeat": 1
+    },
+    {
+        "id": 3,
+        "title": "focp clas (1)",
+        "description": "srwdf",
+        "priority": 9,
+        "difficulty": 2,
+        "duration": 0.9833333333333333,
+        "deadline": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 19,
+            "minute": 0
+        },
+        "start_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 18,
+            "minute": 1.0
+        },
+        "end_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 19,
+            "minute": 0.0
+        },
+        "delayable": false,
+        "completed": false,
+        "weightage": 31.0,
+        "recurring": "",
+        "repeat": 1
     }
 ]

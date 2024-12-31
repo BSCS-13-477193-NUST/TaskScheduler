@@ -8,6 +8,8 @@ class Scheduler:
     calendar = Calendar()
     battery = 100
     task_handler = TaskHandler("tasks.json")
+    absolute_tasks = []
+    unabsolute_tasks = []
 
     def __init__(self):
         #initialize task list
@@ -56,27 +58,30 @@ class Scheduler:
         return None
 
     #recursive function to ensure absolute task is assigned appropriate time
-    def place_absolute_task(self, task, tasks):
+    def place_absolute_task(self, task):
         current_time = Timestamp.getCurrentTimestamp()
         if task.end_time <= current_time: #if task is already over, remove it
-            tasks.remove(task)
+            self.absolute_tasks = [t for t in self.absolute_tasks if t.id != task.id]
             return
-        elif task.start_time <= current_time < task.end_time: #if task is ongoing, set start time to current time
+        elif task.start_time < current_time < task.end_time: #if task is ongoing, set start time to current time
             task.start_time = current_time.addMinutes(1)
             task.duration = task.end_time.getDifference(task.start_time) / 60
-            self.place_absolute_task(task, tasks)
+            self.place_absolute_task(task)
         else:
             #check if task conflicts with an existing task
+            print("in da else")
             conflicting_task = self.check_conflicts(task)
             if conflicting_task is not None:
                 #if task conflicts, still add task but with a shortened duration but still within same time
                 if task.end_time <= conflicting_task.end_time:
                     if task.start_time <= conflicting_task.start_time: #case 3
-                        task.end_time = conflicting_task.start_time.addMinutes(1)
+                        task.end_time = conflicting_task.start_time
                         task.duration = task.end_time.getDifference(task.start_time) / 60
-                        self.place_absolute_task(task, tasks)
+                        print("case 3")
+                        self.place_absolute_task(task)
                     else: #case 1
                         tasks.remove(task)
+                        print("case 1")
                         return None
                 elif conflicting_task.end_time <= task.end_time:
                     if task.start_time <= conflicting_task.start_time: #case 4
@@ -84,68 +89,67 @@ class Scheduler:
                         task2 = copy.deepcopy(task)
                         task2.end_time = conflicting_task.start_time.addMinutes(1)
                         task2.duration = task2.end_time.getDifference(task2.start_time) / 60
-                        task2.title = task.title + " (2)"
+                        task2.title = task.title + " (1)"
+                        task2.id  = Task.i
+                        Task.i += 1
 
                         task.start_time = conflicting_task.end_time.addMinutes(1)
                         task.duration = task.end_time.getDifference(task.start_time) / 60
-                        task.title = task.title + " (1)"
+                        task.title = task.title + " (2)"
 
-                        tasks.append(task2)
-                        self.place_absolute_task(task, tasks)
-                        self.place_absolute_task(task2, tasks)
+                        self.absolute_tasks.append(task2)
+                        print("case 4")
+                        self.place_absolute_task(task)
+                        print("da break")
+                        self.place_absolute_task(task2)
 
                     else: #case 2
                         task.start_time = conflicting_task.end_time.addMinutes(1)
                         task.duration = task.end_time.getDifference(task.start_time) / 60
-                        self.place_absolute_task(task, tasks)
+                        print("case 2")
+                        self.place_absolute_task(task)
+            self.absolute_tasks = [t for t in self.absolute_tasks if t.id != task.id]
+            self.absolute_tasks.append(task)
             self.calendar.addTask(task)
 
 
     #recursive function to ensure unabsolute task is properly assigned time
-    def place_unabsolute_task(self, task, tasks): #------------------- in development ---------------------------
+    def place_unabsolute_task(self, task):
         current_time = Timestamp.getCurrentTimestamp()
         if task.deadline <= current_time:  # if task is already over, remove it
-            tasks.remove(task)
+            self.unabsolute_tasks = [t for t in self.unabsolute_tasks if t.id != task.id]
             return
-        if task.start_time <= current_time:  # if task is ongoing, set start time to current time
+        elif task.start_time < current_time < task.end_time:  # if task is ongoing, set start time to current time
             task.start_time = current_time.addMinutes(1)
             task.duration = task.end_time.getDifference(task.start_time) / 60
-            self.place_unabsolute_task(task, tasks)
+            self.place_unabsolute_task(task)
         else:
             # Ensure the task does not start before the original start time
             if current_time <= task.start_time:
                 task.start_time = task.start_time
             else:
                 task.start_time = current_time
-                #ensure task does not start before original start time
-                if current_time <= task.start_time:
-                    task.start_time = task.start_time
-                else:
-                    task.start_time = current_time
 
-            #ensure task does not end after the deadline
-            task.end_time = min(task.start_time.addMinutes(task.duration * 60), task.deadline)
+            # Ensure task does not end after the deadline
+            task.end_time = task.start_time.addMinutes(task.duration * 60)
 
             # Check if task conflicts with an existing task
             conflicting_task = self.check_conflicts(task)
             while conflicting_task is not None:
                 # Push the conflicting task forward
                 task.start_time = conflicting_task.end_time.addMinutes(5)
-                task.end_time = min(task.start_time.addMinutes(task.duration * 60), task.deadline)
-
-                # If the task cannot be completed before the deadline, remove it
-                if task.end_time > task.deadline:
-                    tasks.remove(task)
-                    return
+                task.end_time = task.start_time.addMinutes(task.duration * 60)
 
                 conflicting_task = self.check_conflicts(task)
 
-            tasks.append(task)
+            self.unabsolute_tasks = [t for t in self.unabsolute_tasks if t.id != task.id]
+            self.unabsolute_tasks.append(task)
+            self.calendar.addTask(task)
 
 
     def solve_schedule(self):
-        absolute_tasks = []
-        unabsolute_tasks = []
+        self.absolute_tasks = []
+        self.unabsolute_tasks = []
 
         self.calendar.clearCalendar() #clear calendar
 
@@ -154,22 +158,22 @@ class Scheduler:
                 self.tasks.remove(task)
                 continue
             if task.delayable:
-                unabsolute_tasks.append(task)
+                self.unabsolute_tasks.append(task)
             else:
-                absolute_tasks.append(task)
+                self.absolute_tasks.append(task)
         
         #sort both lists by weightage (descending)
-        absolute_tasks.sort(key=lambda x: x.weightage, reverse=True) #constraint: weightage
-        unabsolute_tasks.sort(key=lambda x: x.weightage, reverse=True) #constraint: weightage
+        self.absolute_tasks.sort(key=lambda x: x.weightage, reverse=True) #constraint: weightage
+        self.unabsolute_tasks.sort(key=lambda x: x.weightage, reverse=True) #constraint: weightage
 
-        for task in absolute_tasks: #strict constraints
-            self.place_absolute_task(task, absolute_tasks)
+        for task in self.absolute_tasks: #strict constraints
+            self.place_absolute_task(task)
                     
-        for task in unabsolute_tasks: #dynamic constraints
-            self.place_unabsolute_task(task, unabsolute_tasks)
+        for task in self.unabsolute_tasks: #dynamic constraints
+            self.place_unabsolute_task(task)
 
         #merge both arrays in self.tasks
-        self.tasks = absolute_tasks + unabsolute_tasks
+        self.tasks = self.absolute_tasks + self.unabsolute_tasks
         #sort self.tasks by start time
         self.tasks.sort(key=lambda x: x.start_time)
         self.task_handler.save_tasks(self.tasks)

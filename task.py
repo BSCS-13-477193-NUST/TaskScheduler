@@ -35,16 +35,14 @@ class Task:
         self.weightage = 0
 
     def calculate_weightage(self):
-        deadlineMins = self.deadline.getMinutesLeft()
-        completionWindow = self.end_time.getDifference(self.start_time)
+        completionRatio = self.duration / (self.deadline.getDifference(self.start_time) / 60)
 
         self.weightage = (
             weights['priority'] * self.priority +
-            weights['difficulty'] * self.difficulty -
-            weights['duration'] * self.duration -
-            weights['deadline'] * deadlineMins -
-            weights['completion window'] * completionWindow
+            weights['difficulty'] * self.difficulty +
+            weights['completion ratio'] * completionRatio
         )
+
     def __str__(self) -> str:
         return f"Task {self.id}: {self.title}\nDescription: {self.description}\nPriority: {self.priority}\nDifficulty: {self.difficulty}\nDuration: {self.duration} hours\nDeadline: {self.deadline}\nStart Time: {self.start_time}\nEnd Time: {self.end_time}\nDelayable: {self.delayable}\nCompleted: {self.completed}\nWeightage: {self.weightage:.2f}"
 

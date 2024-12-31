@@ -37,22 +37,29 @@ class Timestamp:
     def getDifference(self, timestamp: 'Timestamp') -> int:
         return (self.year - timestamp.year) * 525600 + (self.month - timestamp.month) * 43800 + (self.day - timestamp.day) * 1440 + (self.hour - timestamp.hour) * 60 + (self.minute - timestamp.minute)
 
-    def isBefore(self, timestamp: 'Timestamp') -> bool:
-        if self.year < timestamp.year:
-            return True
-        elif self.year == timestamp.year:
-            if self.month < timestamp.month:
-                return True
-            elif self.month == timestamp.month:
-                if self.day < timestamp.day:
-                    return True
-                elif self.day == timestamp.day:
-                    if self.hour < timestamp.hour:
-                        return True
-                    elif self.hour == timestamp.hour:
-                        if self.minute <= timestamp.minute:
-                            return True
-        return False
+    def __eq__(self, other: 'Timestamp') -> bool:
+        return (self.year == other.year and self.month == other.month and self.day == other.day and
+                self.hour == other.hour and self.minute == other.minute)
+
+    def __lt__(self, other: 'Timestamp') -> bool:
+        if self.year != other.year:
+            return self.year < other.year
+        if self.month != other.month:
+            return self.month < other.month
+        if self.day != other.day:
+            return self.day < other.day
+        if self.hour != other.hour:
+            return self.hour < other.hour
+        return self.minute < other.minute
+
+    def __le__(self, other: 'Timestamp') -> bool:
+        return self < other or self == other
+
+    def __gt__(self, other: 'Timestamp') -> bool:
+        return not self <= other
+
+    def __ge__(self, other: 'Timestamp') -> bool:
+        return not self < other
 
     def getMinutesLeft(self) -> int:
         time1 = Timestamp.getCurrentTimestamp()

@@ -1,72 +1,70 @@
 [
     {
-        "id": 2,
-        "title": "laundry",
-        "description": "fdge",
+        "id": 51,
+        "title": "study",
+        "description": "fdskjnkf",
         "priority": 2,
         "difficulty": 1,
-        "duration": 1.0,
-        "fuel_cost": 10.0,
-        "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 21,
-            "minute": 5.0
-        },
-        "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 22,
-            "minute": 5.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": -739.0,
-        "recurring": "",
-        "repeat": 1
-    },
-    {
-        "id": 1,
-        "title": "study",
-        "description": "fsdfsfs",
-        "priority": 2,
-        "difficulty": 6,
         "duration": 4.0,
-        "fuel_cost": 50.0,
         "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 30,
-            "hour": 22,
-            "minute": 10.0
-        },
-        "end_time": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 2,
-            "minute": 10.0
+            "hour": 15,
+            "minute": 0
         },
-        "delayable": true,
+        "start_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 23,
+            "minute": 0
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 1,
+            "hour": 3,
+            "minute": 0.0
+        },
+        "delayable": false,
         "completed": false,
-        "weightage": -983.0,
-        "recurring": "",
-        "repeat": 1
+        "weightage": 6.0,
+        "recurring": "d",
+        "repeat": 2
+    },
+    {
+        "id": 52,
+        "title": "study",
+        "description": "fdskjnkf",
+        "priority": 2,
+        "difficulty": 1,
+        "duration": 4.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 1,
+            "hour": 15,
+            "minute": 0
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 1,
+            "hour": 23,
+            "minute": 0
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 2,
+            "hour": 3,
+            "minute": 0.0
+        },
+        "delayable": false,
+        "completed": false,
+        "weightage": 6.0,
+        "recurring": "d",
+        "repeat": 2
     }
 ]

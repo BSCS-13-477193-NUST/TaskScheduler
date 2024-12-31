@@ -12,56 +12,50 @@ class Calendar:
     def clearCalendar(self):
         self.calendar = [[[] for _ in range(31)] for _ in range(12)]
 
-    def addTask(self, tasks):
-        self.clearCalendar()
-        for task in tasks:
-            
-            start_time = task.start_time
+    def addTask(self, task):
+        start_time = task.start_time
 
-            # Access the components of the Timestamp object
-            start_month = start_time.month - 1  # 0-based index for months
-            start_day = start_time.day - 1      # 0-based index for days
-            
-            # Append the task to the correct slot in the calendar
-            self.calendar[start_month][start_day].append(task)
+        # Access the components of the Timestamp object
+        start_month = start_time.month - 1  # 0-based index for months
+        start_day = start_time.day - 1      # 0-based index for days
+        
+        # Append the task to the correct slot in the calendar
+        self.calendar[start_month][start_day].append(task)
 
-            # Check if the task crosses midnight
-            end_time = task.start_time.addMinutes(task.duration * 60)
+        # Check if the task crosses midnight
+        end_time = task.start_time.addMinutes(task.duration * 60)
 
-            if end_time.day > task.start_time.day:
-                # Calculate the duration remaining after midnight
-                remaining_duration = task.duration - ((23 - task.start_time.hour) + ((60 - task.start_time.minute) / 60))
+        if end_time.day > task.start_time.day:
+            # Calculate the duration remaining after midnight
+            remaining_duration = task.duration - ((23 - task.start_time.hour) + ((60 - task.start_time.minute) / 60))
 
-                # Create the new task for the next day
-                next_day = task.start_time.addDays(1)
+            # Create the new task for the next day
+            next_day = task.start_time.addDays(1)
 
-                new_task = Task(
-                    task.title,
-                    task.description,
-                    task.priority,
-                    task.difficulty,
-                    remaining_duration,
-                    task.deadline,
-                    Timestamp.getDate(f"2024-{next_day.month:02d}-{next_day.day:02d} 00:00"),
-                    task.end_time,
-                    task.delayable,
-                    task.recurring,
-                    task.repeat
-                )
+            new_task = Task(
+                task.title,
+                task.description,
+                task.priority,
+                task.difficulty,
+                remaining_duration,
+                task.deadline,
+                Timestamp.getDate(f"2024-{next_day.month:02d}-{next_day.day:02d} 00:00"),
+                task.end_time,
+                task.delayable,
+                task.recurring,
+                task.repeat
+            )
 
-                # Add the new task to the next day's calendar
-                next_month = start_month
-                next_day_index = start_day + 1
+            # Add the new task to the next day's calendar
+            next_month = start_month
+            next_day_index = start_day + 1
 
-                # Handle end-of-month transitions
-                if next_day_index >= self.days_in_month[start_month]:
-                    next_day_index = 0
-                    next_month = (start_month + 1) % 12
+            # Handle end-of-month transitions
+            if next_day_index >= self.days_in_month[start_month]:
+                next_day_index = 0
+                next_month = (start_month + 1) % 12
 
-                self.calendar[next_month][next_day_index].append(new_task)
-
-
-    
+            self.calendar[next_month][next_day_index].append(new_task)    
 
     def displayDailyTasks(self, month, day):
         # Check if the day is valid for the given month
@@ -535,7 +529,7 @@ def main():
 
     # Set recurring repeat attributes
     calendar = Calendar()
-    calendar.addTask(tasks)
+    calendar.addTasks(tasks)
 
     # Display tasks for a specific day
     calendar.displayDailyTasks(month=2, day=1)  # Example: Display tasks for January 31st

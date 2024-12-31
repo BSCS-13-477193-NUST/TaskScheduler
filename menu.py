@@ -4,13 +4,11 @@ from my_calendar import Calendar
 
 def menu():
     scheduler = Scheduler()
+    print("👋 Welcome to the Kaam Tamaam System! 🚪")
     print(r"""
-     __          ________ _      _____ ____  __  __ ______   _______ ____          
-     \ \        / /  ____| |    / ____/ __ \|  \/  |  ____| |__   __/ __ \         
-      \ \  /\  / /| |__  | |   | |   | |  | | \  / | |__       | | | |  | |        
-       \ \/  \/ / |  __| | |   | |   | |  | | |\/| |  __|      | | | |  | |         _____   __   __
-        \  /\  /  | |____| |___| |___| |__| | |  | | |____     | | | |__| |        |_   _| |  \ /  |
-  _  __  \/  \/   |______|______\_____\____/|_|  |_|______|    |_|  \____/  __  __   | |   | | V | |
+                                                                                    _____   __   __
+                                                                                   |_   _| |  \ /  |
+  _  __                    __  __   _______       __  __                    __  __   | |   | | V | |
  | |/ /    /\        /\   |  \/  | |__   __|/\   |  \/  |   /\        /\   |  \/  |  |_|   |_|   |_|
  | ' /    /  \      /  \  | \  / |    | |  /  \  | \  / |  /  \      /  \  | \  / |
  |  <    / /\ \    / /\ \ | |\/| |    | | / /\ \ | |\/| | / /\ \    / /\ \ | |\/| |
@@ -21,48 +19,30 @@ def menu():
         print("\n1️⃣  Add Task ➕")
         print("2️⃣  Edit Task ✏")
         print("3️⃣  Complete Task ✅")
-        print("4️⃣  Display Tasks 📜")
-        print("5️⃣  Refresh Schedule 🔄 ")
-        print("6️⃣  Display Calendar 📆")
-        print("7️⃣  Clear Calendar 🗑")
-        print("8️⃣  Exit 🚪")
+        print("4️⃣  Update Sleep Schedule 🛌")
+        print("5️⃣  Display Tasks 📜")
+        print("6️⃣  Refresh Schedule 🔄")
+        print("7️⃣  Display Calendar 📆")
+        print("8️⃣  Clear Calendar 🗑")
+        print("0️⃣  Exit 🚪")
         choice = input("Enter your choice: ")
 
 
         if choice == "1":
             try:
-                try:
-                    current_time = Timestamp.getCurrentTimestamp()
-                    name = input("📝 Enter task name: ")
-                    description = input("📝 Enter task description: ")
-                    priority = int(input("⚡ Enter priority level (0-10): "))
-                    if priority < 0 or priority > 10:
-                        print("❌ Invalid input. Please try again.")
-                        continue
-                    difficulty = int(input("🛠 Enter difficulty level (0-10): "))
-                    if difficulty < 0 or difficulty > 10:
-                        print("❌ Invalid input. Please try again.")
-                        continue
-                    duration = float(input("⏳ Enter task duration in hours: "))
-                    if duration <= 0:
-                        print("❌ Invalid input. Please try again.")
-                        continue
-
-                    deadline = Timestamp.getDate(input("📅 Enter deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
-                    if deadline is None:
-                        continue
-
-                    start_time = Timestamp.getDate(input("🕒 Enter start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
-                    if start_time is None:
-                        continue
-                    if start_time > deadline:
-                        print("❌ Invalid input. Start time cannot be after deadline. Please try again.")
-                        continue
-                    if start_time < current_time:
-                        print("❌ Invalid input. Start time cannot be before current time. Please try again.")
-                        continue
-
-                except ValueError:
+                current_time = Timestamp.getCurrentTimestamp()
+                name = input("📝 Enter task name: ")
+                description = input("📝 Enter task description: ")
+                priority = int(input("⚡ Enter priority level (0-10): "))
+                if priority < 0 or priority > 10:
+                    print("❌ Invalid input. Please try again.")
+                    continue
+                difficulty = int(input("🛠 Enter difficulty level (0-10): "))
+                if difficulty < 0 or difficulty > 10:
+                    print("❌ Invalid input. Please try again.")
+                    continue
+                duration = float(input("⏳ Enter task duration in hours: "))
+                if duration <= 0:
                     print("❌ Invalid input. Please try again.")
                     continue
 
@@ -95,6 +75,22 @@ def menu():
                     print("❌ Invalid input. Task will be considered non-recurring by default.")
                     recurring = ""
 
+                deadline = Timestamp.getDate(input("📅 Enter deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
+                if deadline is None:
+                    continue
+
+                start_time = Timestamp.getDate(input("🕒 Enter start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
+                if start_time is None:
+                    continue
+                if start_time > deadline:
+                    print("❌ Invalid input. Start time cannot be after deadline. Please try again.")
+                    continue
+                if start_time < current_time and recurring == "":
+                    print("❌ Invalid input. Start time cannot be before current time. Please try again.")
+                    continue
+
+
+
                 scheduler.add_task(name, description, priority, difficulty, duration, 
                                 deadline, start_time, start_time.addMinutes(duration*60), delayable, recurring, repeat)
 
@@ -122,16 +118,16 @@ def menu():
                 print("✅ Task found:")
                 print(task)
                 print("✏ Edit task:")
-                print("1. Name 📝")
-                print("2. Description 📝")
-                print("3. Priority ⚡")
-                print("4. Difficulty 🛠")
-                print("5. Duration ⏳")
-                print("6. Deadline 📅")
-                print("7. Start Time 🕒")
-                print("8. Delayable ⏳")
-                print("9. Recurring 🔄")
-                print("10. Cancel ❌")
+                print("1️⃣  Name 📝")
+                print("2️⃣  Description 📝")
+                print("3️⃣  Priority ⚡")
+                print("4️⃣  Difficulty 🛠")
+                print("5️⃣  Duration ⏳")
+                print("6️⃣  Deadline 📅")
+                print("7️⃣  Start Time 🕒")
+                print("8️⃣  Delayable ⏳")
+                print("9️⃣  Recurring 🔄")
+                print("🔟  Cancel ❌")
                 edit_choice = input("➡ Enter your choice: ")
 
                 if edit_choice == "1":
@@ -249,14 +245,34 @@ def menu():
             scheduler.calendar.removeTask(task)
             scheduler.task_handler.save_tasks(scheduler.tasks)
             print("Task completed successfully!\n")
-        elif choice == "4":
-            scheduler.display_tasks()
+        elif choice == '4':
+            try:
+                sleep_start = Timestamp.getDate(input("🌙 Enter sleep start time (HH:MM): "))
+                sleep_duration = float(input("🌙 Enter sleep duration in hours: "))
+                if sleep_start is None or sleep_duration is None:
+                    print("❌ Invalid input. Please try again.")
+                    continue
+                if sleep_duration < 0:
+                    print("❌ Invalid input. Please try again.")
+                    continue
+                if sleep_start < Timestamp.getCurrentTimestamp():
+                    sleep_start = sleep_start.addDays(1)
+                scheduler.set_sleep_schedule(sleep_start, sleep_duration)
+                print("✅ Sleep schedule updated successfully!\n")
+            except ValueError or IndexError or KeyError or AttributeError or TypeError or EOFError:
+                print("Invalid input. Please try again.")
+                continue
 
         elif choice == "5":
-            scheduler.solve_schedule()
-            scheduler.task_handler.save_tasks(scheduler.tasks)
+            print("📜 Tasks:")
+            scheduler.display_tasks()
 
         elif choice == "6":
+            scheduler.solve_schedule()
+            scheduler.task_handler.save_tasks(scheduler.tasks)
+            print("🔄 Schedule refreshed successfully!\n")
+
+        elif choice == "7":
             try:
                 if not scheduler.tasks:
                     print("📋 No tasks to display.\n")
@@ -267,9 +283,9 @@ def menu():
 
                 while True:
                     print("📅 Schedule Options:")
-                    print("1. Display day schedule 📆")
-                    print("2. Display month schedule 🗓")
-                    print("3. Display year schedule 🗓")
+                    print("1️⃣  Display day schedule 📆")
+                    print("2️⃣  Display month schedule 🗓")
+                    print("3️⃣  Display year schedule 🗓")
                     choice = input("➡ Enter your choice: ")
 
                     if choice == "1":
@@ -291,14 +307,17 @@ def menu():
                 print("Invalid input. Please try again.")
                 continue
 
-        elif choice == "7":
+        elif choice == "8":
             scheduler.tasks = []
             scheduler.calendar.clearCalendar()
             scheduler.task_handler.save_tasks(scheduler.tasks)
+            sleep_start, sleep_duration = scheduler.calendar.getSleepTimes()
             print("🗑 Calendar cleared.\n")
+            if sleep_start is not None and sleep_end is not None:
+                scheduler.set_sleep_schedule(sleep_start, sleep_duration)
 
-        elif choice == "8":
-            print("👋 Exiting the Task Management System. Goodbye! 🚪")
+        elif choice == "0":
+            print("👋 Exiting the Kaam Tamaam System. Goodbye! 🚪")
             break
         else:
             print("❌ Invalid choice. Please try again. 🔄\n")

@@ -322,7 +322,14 @@ class Calendar:
                             self.calendar[month][day].remove(task)
         return
 
-
+    def getSleepTimes(self):
+        for month in range(12):
+            for day in range(31):
+                if self.calendar[month][day]:
+                    for task in self.calendar[month][day]:
+                        if task.description == "night sleep":
+                            return (task.start_time, task.duration)
+        return (None, None)
 def main():
     tasks = [
         Task(

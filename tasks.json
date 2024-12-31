@@ -1,376 +1,716 @@
 [
     {
-        "id": 11,
-        "title": "finalise proj",
-        "description": "fsdkj",
-        "priority": 9,
-        "difficulty": 9,
+        "id": 1,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
         "duration": 1.0,
         "deadline": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 19,
-            "minute": 5
+            "hour": 23,
+            "minute": 59
         },
         "start_time": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 18,
-            "minute": 4
+            "hour": 21,
+            "minute": 30
         },
         "end_time": {
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 19,
-            "minute": 4.0
+            "hour": 22,
+            "minute": 30.0
         },
-        "delayable": false,
+        "delayable": true,
         "completed": false,
-        "weightage": 1.9672131147540985,
-        "recurring": "",
-        "repeat": 1
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 2,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 3,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
     },
     {
         "id": 4,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
+            "year": 2025,
+            "month": 1,
+            "day": 21,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
+            "year": 2025,
+            "month": 1,
+            "day": 21,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 21,
-            "minute": 48.0
+            "year": 2025,
+            "month": 1,
+            "day": 21,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 5,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
             "month": 1,
-            "day": 7,
+            "day": 28,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
             "month": 1,
-            "day": 7,
+            "day": 28,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
             "month": 1,
-            "day": 7,
-            "hour": 21,
-            "minute": 48.0
+            "day": 28,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 6,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 1,
-            "day": 14,
+            "month": 2,
+            "day": 4,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 1,
-            "day": 14,
+            "month": 2,
+            "day": 4,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 1,
-            "day": 14,
-            "hour": 21,
-            "minute": 48.0
+            "month": 2,
+            "day": 4,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 7,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 1,
-            "day": 21,
+            "month": 2,
+            "day": 11,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 1,
-            "day": 21,
+            "month": 2,
+            "day": 11,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 1,
-            "day": 21,
-            "hour": 21,
-            "minute": 48.0
+            "month": 2,
+            "day": 11,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 8,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 1,
-            "day": 28,
+            "month": 2,
+            "day": 18,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 1,
-            "day": 28,
+            "month": 2,
+            "day": 18,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 1,
-            "day": 28,
-            "hour": 21,
-            "minute": 48.0
+            "month": 2,
+            "day": 18,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 9,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
             "month": 2,
-            "day": 4,
+            "day": 25,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
             "month": 2,
-            "day": 4,
+            "day": 25,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
             "month": 2,
-            "day": 4,
-            "hour": 21,
-            "minute": 48.0
+            "day": 25,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 10,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 2,
-            "day": 11,
+            "month": 3,
+            "day": 4,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 2,
-            "day": 11,
+            "month": 3,
+            "day": 4,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 2,
-            "day": 11,
-            "hour": 21,
-            "minute": 48.0
+            "month": 3,
+            "day": 4,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 11,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 2,
-            "day": 18,
+            "month": 3,
+            "day": 11,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 2,
-            "day": 18,
+            "month": 3,
+            "day": 11,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 2,
-            "day": 18,
-            "hour": 21,
-            "minute": 48.0
+            "month": 3,
+            "day": 11,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 12,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
-            "month": 2,
-            "day": 25,
+            "month": 3,
+            "day": 18,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
-            "month": 2,
-            "day": 25,
+            "month": 3,
+            "day": 18,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
-            "month": 2,
-            "day": 25,
-            "hour": 21,
-            "minute": 48.0
+            "month": 3,
+            "day": 18,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
     },
     {
         "id": 13,
         "title": "laundry",
-        "description": "get da clothes",
-        "priority": 3,
-        "difficulty": 1,
-        "duration": 0.3,
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
         "deadline": {
             "year": 2025,
             "month": 3,
-            "day": 4,
+            "day": 25,
             "hour": 23,
             "minute": 59
         },
         "start_time": {
             "year": 2025,
             "month": 3,
-            "day": 4,
+            "day": 25,
             "hour": 21,
             "minute": 30
         },
         "end_time": {
             "year": 2025,
             "month": 3,
-            "day": 4,
-            "hour": 21,
-            "minute": 48.0
+            "day": 25,
+            "hour": 22,
+            "minute": 30.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": -1.7583892617449663,
+        "weightage": 1.8053691275167785,
         "recurring": "w",
-        "repeat": 10
+        "repeat": 20
+    },
+    {
+        "id": 14,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 4,
+            "day": 1,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 1,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 1,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 15,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 4,
+            "day": 8,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 8,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 8,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 16,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 4,
+            "day": 15,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 15,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 15,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 17,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 4,
+            "day": 22,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 22,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 22,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 18,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 4,
+            "day": 29,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 29,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 4,
+            "day": 29,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 19,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 5,
+            "day": 6,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 5,
+            "day": 6,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 5,
+            "day": 6,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 20,
+        "title": "laundry",
+        "description": "fdsf",
+        "priority": 2,
+        "difficulty": 3,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2025,
+            "month": 5,
+            "day": 13,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 5,
+            "day": 13,
+            "hour": 21,
+            "minute": 30
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 5,
+            "day": 13,
+            "hour": 22,
+            "minute": 30.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": 1.8053691275167785,
+        "recurring": "w",
+        "repeat": 20
+    },
+    {
+        "id": 21,
+        "title": "study",
+        "description": "AI exam",
+        "priority": 7,
+        "difficulty": 7,
+        "duration": 1.0,
+        "deadline": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 21,
+            "minute": 41
+        },
+        "end_time": {
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 22,
+            "minute": 41.0
+        },
+        "delayable": false,
+        "completed": false,
+        "weightage": 0.8695652173913044,
+        "recurring": "",
+        "repeat": 1
     }
 ]

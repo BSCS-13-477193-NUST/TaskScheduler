@@ -71,6 +71,7 @@ class Scheduler:
             print("in da else")
             conflicting_task = self.check_conflicts(task)
             if conflicting_task is not None:
+
                 #if task conflicts, still add task but with a shortened duration but still within same time
                 if task.end_time <= conflicting_task.end_time:
                     if task.start_time <= conflicting_task.start_time: #case 3
@@ -81,9 +82,10 @@ class Scheduler:
                     else: #case 1
                         print("case 1")
                         return
-                elif conflicting_task.end_time <= task.end_time:
+                elif conflicting_task.end_time < task.end_time:
                     if task.start_time <= conflicting_task.start_time: #case 4
                         #break case 4 into two tasks, case 2 and 3
+                        
                         task2 = copy.deepcopy(task)
                         task2.end_time = conflicting_task.start_time.addMinutes(1)
                         task2.duration = task2.end_time.getDifference(task2.start_time) / 60
@@ -95,8 +97,13 @@ class Scheduler:
                         task.duration = task.end_time.getDifference(task.start_time) / 60
                         task.title = task.title + " (2)"
 
+                        if task2.duration <= 1 or task.duration <= 1:
+                            return
+                        if conflicting_task.description == "night sleep": #if conflicting task is sleep, remove task
+                            return
+
                         self.absolute_tasks.append(task2)
-                        print("case 4")
+                        print(f"{task.title}: case 4")
                         self.place_absolute_task(task)
                         print("da break")
                         self.place_absolute_task(task2)
@@ -118,13 +125,16 @@ class Scheduler:
         if task.deadline <= current_time:  # if task is already over, increase its weightage
             task.deadline = current_time.addMinutes(task.duration * 60)
             task.weightage += 3
+        
         if task.start_time.addMinutes(task.duration * 60) >= task.deadline:  # if task should be ongoing, increase weightage slightly
             task.weightage += 2
         #check conflicts
         conflicting_task = self.check_conflicts(task)
         while conflicting_task is not None:
+            if conflicting_task.description == "night sleep": #if conflicting task is sleep, remove task
+                return
             #check if task should replace existing task
-            if task.weightage > conflicting_task.weightage:
+            if task.weightage > conflicting_task.weightage and conflicting_task.delayable:
                 self.calendar.removeTask(conflicting_task.id)
                 self.unabsolute_tasks.remove(conflicting_task)
                 conflicting_task.start_time = task.end_time.addMinutes(3)
@@ -135,7 +145,7 @@ class Scheduler:
             conflicting_task = self.check_conflicts(task)
         self.unabsolute_tasks.append(task)
         self.calendar.addTask(task)
-        place_unabsolute_task(conflicting_task)
+        self.place_unabsolute_task(conflicting_task)
 
     def solve_schedule(self):
         self.absolute_tasks = []
@@ -156,8 +166,11 @@ class Scheduler:
         self.absolute_tasks.sort(key=lambda x: x.weightage, reverse=True) #constraint: weightage
         self.unabsolute_tasks.sort(key=lambda x: x.duration / (x.deadline.getDifference(x.start_time) / 60), reverse=True) #constraint: completionRatio
 
-        absolute_tasks = []
-        unabsolute_tasks = []
+        absolute_tasks = copy.deepcopy(self.absolute_tasks)
+        unabsolute_tasks = copy.deepcopy(self.unabsolute_tasks)
+
+        self.absolute_tasks = []
+        self.unabsolute_tasks = []
 
         for task in absolute_tasks: #strict constraints
             self.place_absolute_task(task)
@@ -174,11 +187,40 @@ class Scheduler:
         for task in self.tasks:
             self.calendar.addTask(task)
 
+    def set_sleep_schedule(self, start_time, duration):
+        current_time = Timestamp.getCurrentTimestamp()
+        for task in self.tasks:
+            if task.description == "night sleep":
+                self.remove_task(task)
+        end_time = start_time.addMinutes(duration)
+        self.add_task("Sleep", "night sleep", 0, 10, duration, end_time.addMinutes(1), start_time, end_time, False, "d", 365)
+        self.task_handler.save_tasks(self.tasks)
+
+
+    # def __init__(title:  description:priority:difficulty:                duration: float, deadline: Timestamp, start_time: Timestamp, end_time: Timestamp, delayable: bool, recurring: str, repeat: int) -> None:
+
     def display_tasks(self):
+        #ask user which day tasks to display
+        while True:
+            try:
+            print("Enter the date you want to display tasks for: ")
+            month = int(input("Month (1-12): "))
+            day = int(input("Day (1-31): "))
+            if 1 <= month <= 12 and 1 <= day <= Timestamp.days_in_month[month]:
+                break
+            else:
+                print(f"Invalid input. Please enter a valid month (1-12) and day (1-{Timestamp.days_in_month[month]}).")
+            except ValueError:
+            print("Invalid input. Please enter numeric values for month and day.")
+        tasks_on_day = self.calendar.calendar[month - 1][day - 1]
+
         if not self.tasks:
             print("No tasks to display.\n")
             return
 
-        for task in self.tasks:
+        for task in tasks_on_day:
+            #dont print sleep task
+            if task.description == "night sleep":
+                continue
             print(task)
             print()

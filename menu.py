@@ -27,7 +27,6 @@ def menu():
         print("0️⃣  Exit 🚪")
         choice = input("Enter your choice: ")
 
-
         if choice == "1":
             try:
                 current_time = Timestamp.getCurrentTimestamp()
@@ -75,28 +74,30 @@ def menu():
                     print("❌ Invalid input. Task will be considered non-recurring by default.")
                     recurring = ""
 
-                deadline = Timestamp.getDate(input("📅 Enter deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
-                if deadline is None:
-                    continue
-
                 start_time = Timestamp.getDate(input("🕒 Enter start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                 if start_time is None:
-                    continue
-                if start_time > deadline:
-                    print("❌ Invalid input. Start time cannot be after deadline. Please try again.")
                     continue
                 if start_time < current_time and recurring == "":
                     print("❌ Invalid input. Start time cannot be before current time. Please try again.")
                     continue
+                
+                if delayable:
+                    deadline = Timestamp.getDate(input("📅 Enter deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
+                    if deadline is None:
+                        continue
+                else:
+                    deadline = start_time.addMinutes(duration*60).addMinutes(1)
 
-
+                if start_time > deadline:
+                    print("❌ Invalid input. Deadline cannot be before start time. Please try again.")
+                    continue
 
                 scheduler.add_task(name, description, priority, difficulty, duration, 
                                 deadline, start_time, start_time.addMinutes(duration*60), delayable, recurring, repeat)
 
                 print("✅ Task added successfully!\n")
                 scheduler.task_handler.save_tasks(scheduler.tasks)
-            except ValueError or IndexError or KeyError or AttributeError or TypeError or EOFError:
+            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError):
                 print("❌ Invalid input. Please try again.")
                 continue
         elif choice == "2":
@@ -222,7 +223,7 @@ def menu():
 
                 scheduler.task_handler.save_tasks(scheduler.tasks)
 
-            except ValueError or IndexError or KeyError or AttributeError or TypeError or EOFError:
+            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError):
                 print("Invalid input. Please try again.")
                 continue
         elif choice == "3":
@@ -231,7 +232,7 @@ def menu():
                 continue
             try:
                 task_id = int(input("Enter task ID to complete: "))
-            except ValueError or TypeError:
+            except (ValueError, TypeError):
                 print("Invalid input. Please try again.")
                 continue
 
@@ -259,12 +260,11 @@ def menu():
                     sleep_start = sleep_start.addDays(1)
                 scheduler.set_sleep_schedule(sleep_start, sleep_duration)
                 print("✅ Sleep schedule updated successfully!\n")
-            except ValueError or IndexError or KeyError or AttributeError or TypeError or EOFError:
+            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError):
                 print("Invalid input. Please try again.")
                 continue
 
         elif choice == "5":
-            print("📜 Tasks:")
             scheduler.display_tasks()
 
         elif choice == "6":
@@ -303,7 +303,7 @@ def menu():
                     else:
                         print("❌ Invalid choice. Please try again.")
 
-            except ValueError or IndexError or KeyError or AttributeError or TypeError or EOFError:
+            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError):
                 print("Invalid input. Please try again.")
                 continue
 

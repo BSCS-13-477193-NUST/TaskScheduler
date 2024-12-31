@@ -1,11 +1,11 @@
 [
     {
-        "id": 1,
+        "id": 20,
         "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
+        "description": "fdsiuwnff",
+        "priority": 8,
+        "difficulty": 2,
+        "duration": 0.5,
         "deadline": {
             "year": 2024,
             "month": 12,
@@ -17,700 +17,292 @@
             "year": 2024,
             "month": 12,
             "day": 31,
-            "hour": 21,
-            "minute": 30
+            "hour": 22,
+            "minute": 26
         },
         "end_time": {
             "year": 2024,
             "month": 12,
             "day": 31,
             "hour": 22,
-            "minute": 30.0
+            "minute": 56.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": 1.8053691275167785,
+        "weightage": -5.354838709677419,
         "recurring": "w",
-        "repeat": 20
+        "repeat": 4
     },
     {
-        "id": 2,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
+        "id": 24,
+        "title": "scroll insta",
+        "description": "kjengkef",
+        "priority": 10,
+        "difficulty": 1,
+        "duration": 2.0,
         "deadline": {
             "year": 2025,
             "month": 1,
-            "day": 7,
-            "hour": 23,
-            "minute": 59
+            "day": 1,
+            "hour": 1,
+            "minute": 0
         },
         "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 7,
-            "hour": 21,
-            "minute": 30
+            "year": 2024,
+            "month": 12,
+            "day": 31,
+            "hour": 22,
+            "minute": 59.0
         },
         "end_time": {
             "year": 2025,
             "month": 1,
-            "day": 7,
-            "hour": 22,
-            "minute": 30.0
+            "day": 1,
+            "hour": 0,
+            "minute": 59.0
         },
         "delayable": true,
         "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 3,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 14,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 14,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 14,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 4,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 21,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 21,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 21,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 5,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 1,
-            "day": 28,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 28,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 1,
-            "day": 28,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 6,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 2,
-            "day": 4,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 4,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 4,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 7,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 2,
-            "day": 11,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 11,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 11,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 8,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 2,
-            "day": 18,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 18,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 18,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 9,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 2,
-            "day": 25,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 25,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 2,
-            "day": 25,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 10,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 3,
-            "day": 4,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 4,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 4,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 11,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 3,
-            "day": 11,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 11,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 11,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 12,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 3,
-            "day": 18,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 18,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 18,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 13,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 3,
-            "day": 25,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 25,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 3,
-            "day": 25,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
+        "weightage": -9.34934497816594,
+        "recurring": "d",
+        "repeat": 4
     },
     {
         "id": 14,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
+        "title": "class",
+        "description": "fsdfbw",
+        "priority": 1,
+        "difficulty": 2,
+        "duration": 5.0,
         "deadline": {
             "year": 2025,
-            "month": 4,
+            "month": 1,
             "day": 1,
-            "hour": 23,
-            "minute": 59
+            "hour": 19,
+            "minute": 0
         },
         "start_time": {
             "year": 2025,
-            "month": 4,
+            "month": 1,
             "day": 1,
-            "hour": 21,
-            "minute": 30
+            "hour": 14,
+            "minute": 0
         },
         "end_time": {
             "year": 2025,
-            "month": 4,
+            "month": 1,
             "day": 1,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 15,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 4,
-            "day": 8,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 8,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 8,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 16,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 4,
-            "day": 15,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 15,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 15,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 17,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 4,
-            "day": 22,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 22,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 22,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 18,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 4,
-            "day": 29,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 29,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 4,
-            "day": 29,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 19,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 5,
-            "day": 6,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 5,
-            "day": 6,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 5,
-            "day": 6,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 20,
-        "title": "laundry",
-        "description": "fdsf",
-        "priority": 2,
-        "difficulty": 3,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2025,
-            "month": 5,
-            "day": 13,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2025,
-            "month": 5,
-            "day": 13,
-            "hour": 21,
-            "minute": 30
-        },
-        "end_time": {
-            "year": 2025,
-            "month": 5,
-            "day": 13,
-            "hour": 22,
-            "minute": 30.0
-        },
-        "delayable": true,
-        "completed": false,
-        "weightage": 1.8053691275167785,
-        "recurring": "w",
-        "repeat": 20
-    },
-    {
-        "id": 21,
-        "title": "study",
-        "description": "AI exam",
-        "priority": 7,
-        "difficulty": 7,
-        "duration": 1.0,
-        "deadline": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 23,
-            "minute": 59
-        },
-        "start_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 21,
-            "minute": 41
-        },
-        "end_time": {
-            "year": 2024,
-            "month": 12,
-            "day": 31,
-            "hour": 22,
-            "minute": 41.0
+            "hour": 19,
+            "minute": 0.0
         },
         "delayable": false,
         "completed": false,
-        "weightage": 0.8695652173913044,
+        "weightage": 3.0,
         "recurring": "",
         "repeat": 1
+    },
+    {
+        "id": 25,
+        "title": "scroll insta",
+        "description": "kjengkef",
+        "priority": 10,
+        "difficulty": 1,
+        "duration": 2.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 2,
+            "hour": 1,
+            "minute": 0
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 1,
+            "hour": 22,
+            "minute": 27
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 2,
+            "hour": 0,
+            "minute": 27.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -7.431372549019608,
+        "recurring": "d",
+        "repeat": 4
+    },
+    {
+        "id": 26,
+        "title": "scroll insta",
+        "description": "kjengkef",
+        "priority": 10,
+        "difficulty": 1,
+        "duration": 2.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 3,
+            "hour": 1,
+            "minute": 0
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 2,
+            "hour": 22,
+            "minute": 27
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 3,
+            "hour": 0,
+            "minute": 27.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -7.431372549019608,
+        "recurring": "d",
+        "repeat": 4
+    },
+    {
+        "id": 27,
+        "title": "scroll insta",
+        "description": "kjengkef",
+        "priority": 10,
+        "difficulty": 1,
+        "duration": 2.0,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 4,
+            "hour": 1,
+            "minute": 0
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 3,
+            "hour": 22,
+            "minute": 27
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 4,
+            "hour": 0,
+            "minute": 27.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -7.431372549019608,
+        "recurring": "d",
+        "repeat": 4
+    },
+    {
+        "id": 21,
+        "title": "laundry",
+        "description": "fdsiuwnff",
+        "priority": 8,
+        "difficulty": 2,
+        "duration": 0.5,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 22,
+            "minute": 26
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 7,
+            "hour": 22,
+            "minute": 56.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -5.354838709677419,
+        "recurring": "w",
+        "repeat": 4
+    },
+    {
+        "id": 22,
+        "title": "laundry",
+        "description": "fdsiuwnff",
+        "priority": 8,
+        "difficulty": 2,
+        "duration": 0.5,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 22,
+            "minute": 26
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 14,
+            "hour": 22,
+            "minute": 56.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -5.354838709677419,
+        "recurring": "w",
+        "repeat": 4
+    },
+    {
+        "id": 23,
+        "title": "laundry",
+        "description": "fdsiuwnff",
+        "priority": 8,
+        "difficulty": 2,
+        "duration": 0.5,
+        "deadline": {
+            "year": 2025,
+            "month": 1,
+            "day": 21,
+            "hour": 23,
+            "minute": 59
+        },
+        "start_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 21,
+            "hour": 22,
+            "minute": 26
+        },
+        "end_time": {
+            "year": 2025,
+            "month": 1,
+            "day": 21,
+            "hour": 22,
+            "minute": 56.0
+        },
+        "delayable": true,
+        "completed": false,
+        "weightage": -5.354838709677419,
+        "recurring": "w",
+        "repeat": 4
     }
 ]

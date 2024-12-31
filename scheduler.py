@@ -203,21 +203,23 @@ class Scheduler:
         #ask user which day tasks to display
         while True:
             try:
-            print("Enter the date you want to display tasks for: ")
-            month = int(input("Month (1-12): "))
-            day = int(input("Day (1-31): "))
-            if 1 <= month <= 12 and 1 <= day <= Timestamp.days_in_month[month]:
-                break
-            else:
-                print(f"Invalid input. Please enter a valid month (1-12) and day (1-{Timestamp.days_in_month[month]}).")
-            except ValueError:
-            print("Invalid input. Please enter numeric values for month and day.")
-        tasks_on_day = self.calendar.calendar[month - 1][day - 1]
+                print("Enter the date you want to display tasks for: ")
+                month = int(input("Month (1-12): "))
+                day = int(input("Day (1-31): "))
+                if 1 <= month <= 12 and 1 <= day <= Timestamp.days_in_month[month]:
+                    break
+                else:
+                    print(f"Invalid input. Please enter a valid month (1-12) and day (1-{Timestamp.days_in_month[month]}).")
+            except (ValueError, KeyError):
+                print("Invalid input. Please enter correct values for month and day.")
 
-        if not self.tasks:
+        tasks_on_day = self.task_handler.load_tasks()
+        tasks_on_day = [task for task in tasks_on_day if task.start_time.month == month and task.start_time.day == day]
+        if len(tasks_on_day) == 0:
             print("No tasks to display.\n")
             return
 
+        print("📜 Tasks:")
         for task in tasks_on_day:
             #dont print sleep task
             if task.description == "night sleep":

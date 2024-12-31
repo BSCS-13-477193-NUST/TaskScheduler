@@ -33,14 +33,20 @@ class Scheduler:
                 st = st.addMonths(1)
                 d = d.addMonths(1)
 
-    def remove_task(self, task):
-        self.tasks.remove(task)
+    def remove_task(self, taskID):
+        self.tasks = [task for task in self.tasks if task.id != taskID]
         self.task_handler.save_tasks(self.tasks)
 
     def get_task(self, task_id):
         for task in self.tasks:
             if task.id == task_id:
                 return task
+        return None
+
+    def get_task_index(self, task_id):
+        for i in range(len(self.tasks)):
+            if self.tasks[i].id == task_id:
+                return i
         return None
             
     def check_conflicts(self, task):
@@ -74,7 +80,7 @@ class Scheduler:
 
                 #if task conflicts, still add task but with a shortened duration but still within same time
                 if task.end_time <= conflicting_task.end_time:
-                    if task.start_time <= conflicting_task.start_time: #case 3
+                    if task.start_time < conflicting_task.start_time: #case 3
                         task.end_time = conflicting_task.start_time
                         task.duration = task.end_time.getDifference(task.start_time) / 60
                         print("case 3")
@@ -152,7 +158,7 @@ class Scheduler:
         self.calendar.clearCalendar() #clear calendar
 
         for task in self.tasks:
-            if task.completed: #remove if completed
+            if task.completed or task.duration <= 0: #remove if completed or duration is 0
                 self.tasks.remove(task)
                 continue
             if task.delayable:
@@ -190,6 +196,9 @@ class Scheduler:
         for task in self.tasks:
             if task.description == "night sleep":
                 self.remove_task(task)
+        if duration <= 0:
+            self.task_handler.save_tasks(self.tasks)
+            return
         end_time = start_time.addMinutes(duration)
         self.add_task("Sleep", "night sleep", 0, 10, duration, end_time.addMinutes(1), start_time, end_time, False, "d", 365)
         self.task_handler.save_tasks(self.tasks)

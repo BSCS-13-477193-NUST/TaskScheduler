@@ -1,6 +1,8 @@
 from scheduler import Scheduler
 from timestamp import Timestamp
 from my_calendar import Calendar
+import copy
+
 
 def menu():
     scheduler = Scheduler()
@@ -111,13 +113,13 @@ def menu():
                     print("❌ Invalid input. Please try again.")
                     continue
 
-                task = scheduler.get_task(task_id)
-                if task is None:
+                i = scheduler.get_task_index(task_id)
+                if i is None:
                     print("🔍 Task not found. Please try again.")
                     continue
-
-                print("✅ Task found:")
-                print(task)
+                print("✅ Task found:\n")
+                print(scheduler.tasks[i])
+                print()
                 print("✏ Edit task:")
                 print("1️⃣  Name 📝")
                 print("2️⃣  Description 📝")
@@ -133,12 +135,12 @@ def menu():
 
                 if edit_choice == "1":
                     name = input("📝 Enter new task name: ")
-                    task.set_name(name)
+                    scheduler.tasks[i].name = name
                     print("✅ Task name updated successfully!\n")
 
                 elif edit_choice == "2":
                     description = input("📝 Enter new task description: ")
-                    task.description = description
+                    scheduler.tasks[i].description = description
                     print("✅ Task description updated successfully!\n")
 
                 elif edit_choice == "3":
@@ -147,7 +149,8 @@ def menu():
                     except ValueError:
                         print("❌ Invalid input. Please try again.")
                         continue
-                    task.set_priority(priority)
+                    scheduler.tasks[i].priority = priority
+                    scheduler.tasks[i].calculate_weightage()
                     print("✅ Task priority updated successfully!\n")
 
                 elif edit_choice == "4":
@@ -156,7 +159,8 @@ def menu():
                     except ValueError:
                         print("❌ Invalid input. Please try again.")
                         continue
-                    task.set_difficulty(difficulty)
+                    scheduler.tasks[i].difficulty = difficulty
+                    scheduler.tasks[i].calculate_weightage()
                     print("✅ Task difficulty updated successfully!\n")
 
                 elif edit_choice == "5":
@@ -165,21 +169,23 @@ def menu():
                     except ValueError:
                         print("❌ Invalid input. Please try again.")
                         continue
-                    task.set_duration(duration)
+                    scheduler.tasks[i].duration = duration
+                    scheduler.tasks[i].end_time = scheduler.tasks[i].start_time.addMinutes(duration*60)
                     print("✅ Task duration updated successfully!\n")
 
                 elif edit_choice == "6":
                     deadline = Timestamp.getDate(input("📅 Enter new deadline (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if deadline is None:
                         continue
-                    task.set_deadline(deadline)
+                    scheduler.tasks[i].deadline = deadline
                     print("✅ Task deadline updated successfully!\n")
 
                 elif edit_choice == "7":
                     start_time = Timestamp.getDate(input("🕒 Enter new start time (YYYY-MM-DD HH:MM or HH:MM or YYYY-MM-DD): "))
                     if start_time is None:
                         continue
-                    task.set_start_time(start_time)
+                    scheduler.tasks[i].start_time = start_time
+                    scheduler.tasks[i].end_time = start_time.addMinutes(scheduler.tasks[i].duration*60)
                     print("✅ Task start time updated successfully!\n")
 
                 elif edit_choice == "8":
@@ -191,7 +197,7 @@ def menu():
                     else:
                         print("❌ Invalid input. Task will be considered delayable by default.")
                         delayable = True
-                    task.set_delayable(delayable)
+                    scheduler.tasks[i].delayable = delayable
                     print("✅ Task delayable status updated successfully!\n")
 
                 elif edit_choice == "9":
@@ -214,16 +220,16 @@ def menu():
                     else:
                         print("❌ Invalid input. Task will be considered non-recurring by default.")
                         recurring = ""
-                    task.set_repeat(repeat)
-                    task.set_recurring(recurring)
+                    scheduler.tasks[i].repeat = repeat
+                    scheduler.tasks[i].recurring = recurring
                     print("✅ Task recurring status updated successfully!\n")
 
                 elif edit_choice == "10":
                     print("❌ Edit cancelled.\n")
-
+                    continue
                 scheduler.task_handler.save_tasks(scheduler.tasks)
 
-            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError):
+            except (ValueError, IndexError, KeyError, AttributeError, TypeError, EOFError) as e:
                 print("Invalid input. Please try again.")
                 continue
         elif choice == "3":

@@ -3,6 +3,7 @@ from task import Task
 import matplotlib.pyplot as plt
 from timestamp import Timestamp
 import matplotlib.patches as patches
+import copy
 
 class Calendar:
     # stores 60 minutes of every 24 hours of every day of every month of the year
@@ -93,6 +94,9 @@ class Calendar:
 
 
         tasks = self.calendar[month][day]
+        # for task in tasks:
+        #     if task.description == "night sleep":
+        #         tasks.remove(task)
         if tasks:
             # Place an elongated shape for each task
             for task in tasks:
@@ -116,31 +120,33 @@ class Calendar:
                     # Determine the duration to display in the current hour
                     duration_in_this_hour = min(remaining_duration, minutes_in_current_hour)
                     
-                    # Plot the task segment in the current hour
-                    ax.plot(
-                        [current_minute, current_minute + duration_in_this_hour],
-                        [current_hour, current_hour],
-                        color='#add8e6',
-                        linewidth=5
-                    )
-                    ax.scatter(
-                        current_minute,
-                        current_hour,
-                        color='#add8e6',
-                        s=100,
-                        edgecolor='#add8e6',
-                        label="Task" if current_minute == minute and current_hour == hour else ""
-                    )
-                    ax.text(
-                        current_minute,
-                        current_hour,
-                        task.title,
-                        color='black',
-                        fontsize=12,
-                        fontfamily='cursive',
-                        ha='left',
-                        va='center'
-                    )
+                    # Ensure the task segment does not overflow past the 23rd hour
+                    if current_hour < 24:
+                        # Plot the task segment in the current hour
+                        ax.plot(
+                            [current_minute, current_minute + duration_in_this_hour],
+                            [current_hour, current_hour],
+                            color='#add8e6',
+                            linewidth=5
+                        )
+                        ax.scatter(
+                            current_minute,
+                            current_hour,
+                            color='#add8e6',
+                            s=100,
+                            edgecolor='#add8e6',
+                            label="Task" if current_minute == minute and current_hour == hour else ""
+                        )
+                        ax.text(
+                            current_minute,
+                            current_hour,
+                            task.title,
+                            color='black',
+                            fontsize=12,
+                            fontfamily='cursive',
+                            ha='left',
+                            va='center'
+                        )
                     
                     # Update remaining duration and move to the next hour if needed
                     remaining_duration -= duration_in_this_hour
@@ -190,9 +196,17 @@ class Calendar:
             new_color = f"#{r:02x}{g:02x}{b:02x}"
             return new_color
 
+        calendar_copy = copy.deepcopy(self.calendar)
+        #remove all the tasks with description night sleep
         for month in range(12):
             for day in range(31):
-                task_count = len(self.calendar[month][day])
+                calendar_copy[month][day] = [task for task in calendar_copy[month][day] if task.description != "night sleep"]
+
+        for month in range(12):
+            for day in range(31):
+                task_count = len(calendar_copy[month][day])
+                print(f"task count: {task_count}")
+
                 if task_count > 0:
                     # Assign color based on the task count
                     color = get_color(task_count)
@@ -234,6 +248,10 @@ class Calendar:
 
         # Fetch the tasks for the given month
         tasks_for_month = self.calendar[month]
+        
+        #remove all the tasks with description night sleep
+        for day in range(31):
+            tasks_for_month[day] = [task for task in tasks_for_month[day] if task.description != "night sleep"]
 
         # Map each day to its (week, day) coordinates
         day_to_coordinates = {}

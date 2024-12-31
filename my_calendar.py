@@ -54,6 +54,9 @@ class Calendar:
             if next_day_index >= self.days_in_month[start_month]:
                 next_day_index = 0
                 next_month = (start_month + 1) % 12
+            
+            new_task.id = Task.i
+            Task.i += 1
 
             self.calendar[next_month][next_day_index].append(new_task)    
 

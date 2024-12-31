@@ -131,8 +131,6 @@ class Scheduler:
         #check conflicts
         conflicting_task = self.check_conflicts(task)
         while conflicting_task is not None:
-            if conflicting_task.description == "night sleep": #if conflicting task is sleep, remove task
-                return
             #check if task should replace existing task
             if task.weightage > conflicting_task.weightage and conflicting_task.delayable:
                 self.calendar.removeTask(conflicting_task.id)

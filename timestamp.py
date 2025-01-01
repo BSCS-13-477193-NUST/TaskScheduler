@@ -71,11 +71,17 @@ class Timestamp:
         while temp.minute >= 60:
             temp.minute -= 60
             temp.hour += 1
+        while temp.minute < 0:
+            temp.minute += 60
+            temp.hour -= 1
         while temp.hour >= 24:
             temp.hour -= 24
             temp.day += 1
+        while temp.hour < 0:
+            temp.hour += 24
+            temp.day -= 1
         while temp.day > Timestamp.days_in_month[temp.month]:
-            #adjust for leap year
+            # adjust for leap year
             if temp.month == 2 and temp.day > 28:
                 if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
                     if temp.day > 29:
@@ -92,6 +98,19 @@ class Timestamp:
             if temp.month > 12:
                 temp.month = 1
                 temp.year += 1
+        while temp.day < 1:
+            temp.month -= 1
+            if temp.month < 1:
+                temp.month = 12
+                temp.year -= 1
+            temp.day += Timestamp.days_in_month[temp.month]
+            # adjust for leap year
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day = 29
+                else:
+                    temp.day = 28
         return temp
 
     def addDays(self, days: int) -> 'Timestamp':

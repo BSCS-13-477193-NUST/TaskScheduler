@@ -6,7 +6,6 @@ import copy
 
 class Scheduler:
     calendar = Calendar()
-    battery = 100
     task_handler = TaskHandler("tasks.json")
     absolute_tasks = []
     unabsolute_tasks = []
@@ -74,26 +73,22 @@ class Scheduler:
             self.place_absolute_task(task)
         else:
             #check if task conflicts with an existing task
-            print("in da else")
             conflicting_task = self.check_conflicts(task)
             if conflicting_task is not None:
-
                 #if task conflicts, still add task but with a shortened duration but still within same time
                 if task.end_time <= conflicting_task.end_time:
                     if task.start_time < conflicting_task.start_time: #case 3
                         task.end_time = conflicting_task.start_time
                         task.duration = task.end_time.getDifference(task.start_time) / 60
-                        print("case 3")
                         self.place_absolute_task(task)
                     else: #case 1
-                        print("case 1")
                         return
                 elif conflicting_task.end_time < task.end_time:
                     if task.start_time <= conflicting_task.start_time: #case 4
                         #break case 4 into two tasks, case 2 and 3
                         
                         task2 = copy.deepcopy(task)
-                        task2.end_time = conflicting_task.start_time.addMinutes(1)
+                        task2.end_time = conflicting_task.start_time.addMinutes(-1)
                         task2.duration = task2.end_time.getDifference(task2.start_time) / 60
                         task2.title = task.title + " (1)"
                         task2.id  = Task.i
@@ -103,21 +98,17 @@ class Scheduler:
                         task.duration = task.end_time.getDifference(task.start_time) / 60
                         task.title = task.title + " (2)"
 
-                        if task2.duration <= 1 or task.duration <= 1:
-                            return
                         if conflicting_task.description == "night sleep": #if conflicting task is sleep, remove task
                             return
-
-                        self.absolute_tasks.append(task2)
-                        print(f"{task.title}: case 4")
-                        self.place_absolute_task(task)
-                        print("da break")
-                        self.place_absolute_task(task2)
+                        if task2.duration > 0:
+                            self.absolute_tasks.append(task2)
+                            self.place_absolute_task(task2)
+                        if task.duration > 0:
+                            self.place_absolute_task(task)
 
                     else: #case 2
                         task.start_time = conflicting_task.end_time.addMinutes(1)
                         task.duration = task.end_time.getDifference(task.start_time) / 60
-                        print("case 2")
                         self.place_absolute_task(task)
             self.absolute_tasks.append(task)
             self.calendar.addTask(task)
@@ -133,10 +124,17 @@ class Scheduler:
             task.weightage += 3
         
         if task.start_time.addMinutes(task.duration * 60) >= task.deadline:  # if task should be ongoing, increase weightage slightly
-            task.weightage += 2
+            task.delayable = False
+            self.place_absolute_task(task)
+            return
         #check conflicts
         conflicting_task = self.check_conflicts(task)
         while conflicting_task is not None:
+            if task.start_time.addMinutes(task.duration * 60).addMinutes(conflicting_task.duration) >= task.deadline:  # if task should be ongoing
+                task.delayable = False
+                self.place_absolute_task(task)
+                return
+            
             #check if task should replace existing task
             if task.weightage > conflicting_task.weightage and conflicting_task.delayable:
                 self.calendar.removeTask(conflicting_task.id)
@@ -178,9 +176,21 @@ class Scheduler:
 
         for task in absolute_tasks: #strict constraints
             self.place_absolute_task(task)
-                    
+
+        #remove any duplicate tasks in self.absolute_tasks
+        unique_tasks = {}
+        for task in self.absolute_tasks:
+            unique_tasks[task.id] = task
+        self.absolute_tasks = list(unique_tasks.values())
+
         for task in unabsolute_tasks: #dynamic constraints
             self.place_unabsolute_task(task)
+
+        #remove any duplicate tasks in self.unabsolute_tasks
+        unique_tasks = {}
+        for task in self.unabsolute_tasks:
+            unique_tasks[task.id] = task
+        self.unabsolute_tasks = list(unique_tasks.values())
 
         #merge both arrays in self.tasks
         self.tasks = self.absolute_tasks + self.unabsolute_tasks

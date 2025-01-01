@@ -38,7 +38,7 @@ class Task:
         completionRatio = self.duration / (self.deadline.getDifference(self.start_time) / 60)
 
         self.weightage = (
-            - weights['priority'] * self.priority +
+            10 - weights['priority'] * self.priority +
             weights['difficulty'] * self.difficulty +
             weights['completion ratio'] * completionRatio
         )

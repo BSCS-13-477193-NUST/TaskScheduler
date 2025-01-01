@@ -205,7 +205,8 @@ class Scheduler:
         current_time = Timestamp.getCurrentTimestamp()
         for task in self.tasks:
             if task.description == "night sleep":
-                self.remove_task(task)
+                self.remove_task(task.id)
+                
         if duration <= 0:
             self.task_handler.save_tasks(self.tasks)
             return

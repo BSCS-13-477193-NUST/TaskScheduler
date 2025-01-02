@@ -29,6 +29,7 @@ class Timestamp:
         self.month = month
         self.year = year
     
+    @staticmethod
     def getCurrentTimestamp() -> 'Timestamp':
         current_time = time.localtime()
         return Timestamp(current_time.tm_min, current_time.tm_hour, current_time.tm_mday, current_time.tm_mon, current_time.tm_year)
@@ -36,37 +37,174 @@ class Timestamp:
     def getDifference(self, timestamp: 'Timestamp') -> int:
         return (self.year - timestamp.year) * 525600 + (self.month - timestamp.month) * 43800 + (self.day - timestamp.day) * 1440 + (self.hour - timestamp.hour) * 60 + (self.minute - timestamp.minute)
 
+    def __eq__(self, other: 'Timestamp') -> bool:
+        return (self.year == other.year and self.month == other.month and self.day == other.day and
+                self.hour == other.hour and self.minute == other.minute)
+
+    def __lt__(self, other: 'Timestamp') -> bool:
+        if self.year != other.year:
+            return self.year < other.year
+        if self.month != other.month:
+            return self.month < other.month
+        if self.day != other.day:
+            return self.day < other.day
+        if self.hour != other.hour:
+            return self.hour < other.hour
+        return self.minute < other.minute
+
+    def __le__(self, other: 'Timestamp') -> bool:
+        return self < other or self == other
+
+    def __gt__(self, other: 'Timestamp') -> bool:
+        return not self <= other
+
+    def __ge__(self, other: 'Timestamp') -> bool:
+        return not self < other
     def getMinutesLeft(self) -> int:
         time1 = Timestamp.getCurrentTimestamp()
         return self.getDifference(time1)
 
-    def addMinutes(self, minutes: int):
-        self.minute += minutes
-        while self.minute >= 60:
-            self.minute -= 60
-            self.hour += 1
-        while self.hour >= 24:
-            self.hour -= 24
-            self.day += 1
-        while self.day > Timestamp.days_in_month[self.month]:
-            #adjust for leap year
-            if self.month == 2 and self.day > 28:
-                if (self.year % 4 == 0 and self.year % 100 != 0) or (self.year % 400 == 0):
-                    if self.day > 29:
-                        self.day -= 29
-                        self.month += 1
+    def addMinutes(self, minutes: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
+        temp.minute += minutes
+        while temp.minute >= 60:
+            temp.minute -= 60
+            temp.hour += 1
+        while temp.minute < 0:
+            temp.minute += 60
+            temp.hour -= 1
+        while temp.hour >= 24:
+            temp.hour -= 24
+            temp.day += 1
+        while temp.hour < 0:
+            temp.hour += 24
+            temp.day -= 1
+        while temp.day > Timestamp.days_in_month[temp.month]:
+            # adjust for leap year
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day -= 29
+                        temp.month += 1
                     else:
                         break
                 else:
-                    self.day -= 28
-                    self.month += 1
+                    temp.day -= 28
+                    temp.month += 1
             else:
-                self.day -= Timestamp.days_in_month[self.month]
-                self.month += 1
-            if self.month > 12:
-                self.month = 1
-                self.year += 1
+                temp.day -= Timestamp.days_in_month[temp.month]
+                temp.month += 1
+            if temp.month > 12:
+                temp.month = 1
+                temp.year += 1
+        while temp.day < 1:
+            temp.month -= 1
+            if temp.month < 1:
+                temp.month = 12
+                temp.year -= 1
+            temp.day += Timestamp.days_in_month[temp.month]
+            # adjust for leap year
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day = 29
+                else:
+                    temp.day = 28
+        return temp
 
-    
+    def addDays(self, days: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
+        temp.day += days
+        while temp.day > Timestamp.days_in_month[temp.month]:
+            #adjust for leap year
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day -= 29
+                        temp.month += 1
+                    else:
+                        break
+                else:
+                    temp.day -= 28
+                    temp.month += 1
+            else:
+                temp.day -= Timestamp.days_in_month[temp.month]
+                temp.month += 1
+            if temp.month > 12:
+                temp.month = 1
+                temp.year += 1
+        return temp
+
+    def addMonths(self, months: int) -> 'Timestamp':
+        temp = self.__class__(self.minute, self.hour, self.day, self.month, self.year)
+        temp.month += months
+        while temp.month > 12:
+            temp.month -= 12
+            temp.year += 1
+        # Adjust the day if it exceeds the maximum days in the resulting month
+        if temp.day > Timestamp.days_in_month[temp.month]:
+            if temp.month == 2 and temp.day > 28:
+                if (temp.year % 4 == 0 and temp.year % 100 != 0) or (temp.year % 400 == 0):
+                    if temp.day > 29:
+                        temp.day = 29
+                else:
+                    temp.day = 28
+            else:
+                temp.day = Timestamp.days_in_month[temp.month]
+        return temp
+
+    @staticmethod
+    def getDate(text) -> 'Timestamp':
+        temp = Timestamp.getCurrentTimestamp()
+        if text == "now":
+            return temp
+        try:
+            if '-' not in text:
+                #time only format (HH:MM)
+                parts = text.split(':')
+                hour = int(parts[0])
+                minute = int(parts[1])
+                day = temp.day
+                month = temp.month
+                year = temp.year
+            elif ':' not in text:
+                #date only format (YYYY-MM-DD)
+                parts = text.split('-')
+                year = int(parts[0])
+                month = int(parts[1])
+                day = int(parts[2][:2])
+                minute = 59
+                hour = 23
+            else:
+                #date and time format (YYYY-MM-DD HH:MM)
+                parts = text.split('-')
+                year = int(parts[0])
+                month = int(parts[1])
+                day = int(parts[2][:2])
+                parts = parts[2][2:].split(':')
+                hour = int(parts[0])
+                minute = int(parts[1])
+        except ValueError or IndexError:
+            print("Invalid date/time format. Please try again.")
+            return None
+        #validation check
+        if year < 2024 or month < 1 or month > 12 or day < 1 or day > 31 or hour < 0 or hour > 23 or minute < 0 or minute > 59:
+            print("Invalid date/time format. Please try again.")
+            return None
+        return Timestamp(minute, hour, day, month, year)
+
     def __str__(self) -> str:
-        return f"{self.hour:02}:{self.minute:02} {self.day:02}/{self.month:02}/{self.year}" 
+        return f"{int(self.hour):02}:{int(self.minute):02} {self.day:02}/{self.month:02}/{self.year}" 
+
+    def to_dict(self):
+        return {
+            'year': self.year,
+            'month': self.month,
+            'day': self.day,
+            'hour': self.hour,
+            'minute': self.minute
+        }
+
+    @staticmethod
+    def from_dict(data):
+        return Timestamp(data['minute'], data['hour'], data['day'], data['month'], data['year'])

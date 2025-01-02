@@ -174,7 +174,6 @@ class Calendar:
         ax.set_xlim(-0.5, 30.5)  # Covers days 1-31
         ax.set_ylim(-0.5, 11.5)  # Covers months January-December
 
-
         def get_color(task_count):
             # Base skin tone color (light skin tone) in hex
             base_hex = "#add8e6"
@@ -297,6 +296,7 @@ class Calendar:
                 tasks = tasks[:4]
                 for i, task in enumerate(tasks):
                     # Get task details
+                    
                     start_time = task.start_time
                     duration = task.duration
                     # Plot a rectangle for the task
@@ -566,6 +566,7 @@ def main():
     calendar.displayMonthlyCalendar(month=2)  # Example: Display tasks for February
     print(calendar.calendar[1])
     calendar.removeTask('brunch with family')  # Remove the first task
+
     print(calendar.calendar[1])
     calendar.displayMonthlyCalendar(month=2)  # Display tasks for February after removing the first task
     

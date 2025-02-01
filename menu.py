@@ -319,7 +319,7 @@ def menu():
             scheduler.task_handler.save_tasks(scheduler.tasks)
             sleep_start, sleep_duration = scheduler.calendar.getSleepTimes()
             print("🗑 Calendar cleared.\n")
-            if sleep_start is not None and sleep_end is not None:
+            if sleep_start is not None and sleep_duration is not None:
                 scheduler.set_sleep_schedule(sleep_start, sleep_duration)
 
         elif choice == "0":

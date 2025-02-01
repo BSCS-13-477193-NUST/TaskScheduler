@@ -60,7 +60,6 @@ class Timestamp:
 
     def __ge__(self, other: 'Timestamp') -> bool:
         return not self < other
-
     def getMinutesLeft(self) -> int:
         time1 = Timestamp.getCurrentTimestamp()
         return self.getDifference(time1)

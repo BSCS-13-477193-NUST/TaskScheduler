@@ -243,4 +243,5 @@ class Scheduler:
             if task.description == "night sleep":
                 continue
             print(task)
+
             print()
